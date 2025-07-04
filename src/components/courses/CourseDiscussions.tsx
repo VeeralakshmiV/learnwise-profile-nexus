@@ -53,7 +53,7 @@ export const CourseDiscussions = ({ courseId, isInstructor = false }: CourseDisc
         .from('course_discussions')
         .select(`
           *,
-          profiles:user_id (
+          profiles (
             full_name,
             avatar_url
           )

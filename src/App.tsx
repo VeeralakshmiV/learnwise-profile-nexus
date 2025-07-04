@@ -21,6 +21,7 @@ import { LoginForm } from './components/auth/LoginForm';
 import { InquiryManagement } from './components/admin/InquiryManagement';
 import AdminPayments from './components/admin/AdminPayments';
 import { AdminCourseManagement } from './components/admin/AdminCourseManagement';
+import { UserProgress } from './components/student/UserProgress';
 
 
 
@@ -75,7 +76,7 @@ function App() {
               <Route path="/student" element={<ProtectedRoute allowedRoles={['admin', 'staff', 'student']} />}>
                 <Route path="dashboard" element={<StudentDashboard />} />            
                 <Route path="certificates" element={<StudentCertificates />} />
-                <Route path="progress" element={<div className="p-8"><h1>Student Progress</h1></div>} />
+                <Route path="progress" element={<UserProgress />} />
               </Route>
               
               {/* <Route path="/course-viewer/:courseId" element={<CourseViewer />} /> */}

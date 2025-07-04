@@ -5,6 +5,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Progress } from '@/components/ui/progress';
 import { useAuth } from '@/components/auth/AuthProvider';
+import { UserProgress } from '@/components/student/UserProgress';
 import { useToast } from '@/hooks/use-toast';
 import { useNavigate } from 'react-router-dom';
 import { 
@@ -346,10 +347,10 @@ export const StudentDashboard: React.FC = () => {
                 <Button 
                   variant="outline" 
                   className="w-full justify-start border-purple-200 text-purple-700 hover:bg-purple-50"
-                  onClick={() => navigate('/payment-history')}
+                  onClick={() => navigate('/student/progress')}
                 >
                   <Calendar className="h-4 w-4 mr-3" />
-                  Payment History
+                  Progress Tracking
                 </Button>
                 <Button 
                   variant="outline" 
