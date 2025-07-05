@@ -92,7 +92,7 @@ export const AssignmentManager: React.FC = () => {
           {
             ...newAssignment,
             course_id: courseId,
-            created_by: user.id,
+            instructor_id: user.id,
             due_date: newAssignment.due_date
               ? new Date(newAssignment.due_date).toISOString()
               : null

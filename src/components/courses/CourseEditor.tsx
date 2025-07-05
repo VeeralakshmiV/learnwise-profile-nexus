@@ -102,11 +102,12 @@ export const CourseEditor: React.FC<CourseEditorProps> = ({
         const { data, error } = await supabase
           .from('courses')
           .insert([{
+            name: courseData.title,
             title: courseData.title,
             description: courseData.description,
             price: courseData.is_free ? 0 : courseData.price,
             thumbnail_url: courseData.thumbnail_url,
-            created_by: profile.id,
+            instructor_id: profile.id,
             is_published: courseData.is_published,
             is_free: courseData.is_free
           }])

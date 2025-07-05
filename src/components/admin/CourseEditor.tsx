@@ -75,7 +75,11 @@ export const CourseEditor: React.FC = () => {
       } else {
         const { error } = await supabase
           .from('courses')
-          .insert([{ ...courseData, created_by: profile?.id }]);
+          .insert([{ 
+            ...courseData, 
+            name: courseData.title,
+            instructor_id: profile?.id 
+          }]);
         if (error) throw error;
       }
 

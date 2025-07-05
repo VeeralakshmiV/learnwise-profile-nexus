@@ -62,7 +62,7 @@ export const StaffDashboard: React.FC = () => {
       const { data: courses, count: courseCount } = await supabase
         .from('courses')
         .select('*', { count: 'exact' })
-        .eq('created_by', profile.id);
+        .eq('instructor_id', profile.id);
 
       const publishedCourses = courses?.filter(c => c.is_published).length || 0;
       const draftCourses = (courseCount || 0) - publishedCourses;
@@ -72,9 +72,9 @@ export const StaffDashboard: React.FC = () => {
         .select(`
           course_id,
           progress,
-          courses!inner(created_by)
+          courses!inner(instructor_id)
         `)
-        .eq('courses.created_by', profile.id);
+        .eq('courses.instructor_id', profile.id);
 
       const uniqueStudents = new Set(enrollments?.map(e => e.course_id)).size;
       const avgProgress = enrollments?.length ? 
@@ -87,26 +87,26 @@ export const StaffDashboard: React.FC = () => {
         .from('enrollments')
         .select(`
           *,
-          courses!inner(created_by)
+          courses!inner(instructor_id)
         `, { count: 'exact', head: true })
-        .eq('courses.created_by', profile.id)
+        .eq('courses.instructor_id', profile.id)
         .gte('enrolled_at', thirtyDaysAgo.toISOString());
 
       const { count: assignmentCount } = await supabase
         .from('assignments')
         .select(`
           *,
-          courses!inner(created_by)
+          courses!inner(instructor_id)
         `, { count: 'exact', head: true })
-        .eq('courses.created_by', profile.id);
+        .eq('courses.instructor_id', profile.id);
 
       const { count: quizCount } = await supabase
         .from('quizzes')
         .select(`
           *,
-          courses!inner(created_by)
+          courses!inner(instructor_id)
         `, { count: 'exact', head: true })
-        .eq('courses.created_by', profile.id);
+        .eq('courses.instructor_id', profile.id);
 
       setStats({
         myCourses: courseCount || 0,
@@ -141,7 +141,7 @@ export const StaffDashboard: React.FC = () => {
       const { data, error } = await supabase
         .from('courses')
         .select('*')
-        .eq('created_by', profile.id)
+        .eq('instructor_id', profile.id)
         .order('created_at', { ascending: false })
         .limit(5);
 

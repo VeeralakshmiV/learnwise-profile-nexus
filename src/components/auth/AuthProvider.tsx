@@ -102,6 +102,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
             .insert({
               id: userId,
               email: user?.email || '',
+              name: user?.email?.split('@')[0] || 'Unknown',
               role: 'student',
               full_name: user?.user_metadata?.full_name || 'Unknown User',
               created_at: new Date().toISOString(),

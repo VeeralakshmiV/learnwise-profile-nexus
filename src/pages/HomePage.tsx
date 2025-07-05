@@ -2,8 +2,8 @@ import { useState, useEffect } from "react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { ContactForm } from '@/components/home/ContactForm';
-import { CourseChatbot } from '@/components/home/CourseChatbot';
+// import { ContactForm } from '@/components/home/ContactForm';
+// import { CourseChatbot } from '@/components/home/CourseChatbot';
 import { LoginForm } from '@/components/auth/LoginForm';
 
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
@@ -18,7 +18,21 @@ import { Users, BookOpen, GraduationCap, Settings, ChevronRight, Sparkles, Camer
 // import AdminDashboard from "@/components/pages/AdminDashboard";
 // import StaffDashboard from "@/components/pages/StaffDashboard";
 // import StudentDashboard from "@/components/dashboards/StudentDashboard";
-import TestimonialsSection from "@/components/TestimonialsSection";
+// import TestimonialsSection from "@/components/TestimonialsSection";
+const TestimonialsSection = () => (
+  <section id="testimonials" className="py-20 bg-gray-800/30 relative">
+    <div className="container mx-auto px-4">
+      <div className="text-center mb-20">
+        <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
+          What Our <span className="bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">Students Say</span>
+        </h2>
+        <p className="text-xl text-gray-300 max-w-3xl mx-auto">
+          Don't just take our word for it - hear from our successful students who have transformed their careers.
+        </p>
+      </div>
+    </div>
+  </section>
+);
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "@/components/auth/AuthProvider";
 
@@ -31,7 +45,7 @@ type UserRole = 'admin' | 'staff' | 'student' | null;
     { id: 'contact', label: 'Contact' },
   ];
 
-const Index = () => {
+const HomePage = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const { user, profile } = useAuth();
   const navigate = useNavigate();
@@ -180,7 +194,7 @@ const Index = () => {
   };
 
   const handleLoginClick = () => {
-    navigate('/auth');
+    navigate('/login');
   };
 
   return (
@@ -543,7 +557,9 @@ const Index = () => {
             </p>
           </div>
 
-          <ContactForm />
+          <div className="text-center">
+            <p className="text-xl text-gray-600 dark:text-gray-400">Contact functionality temporarily disabled</p>
+          </div>
         </div>
       </section>
 
@@ -657,11 +673,11 @@ const Index = () => {
         </div>
       )}
 
-      {/* Course Chatbot */}
-      <CourseChatbot />
+      {/* Course Chatbot - Temporarily disabled */}
+      {/* <CourseChatbot /> */}
     </div>
   );
 };
 
 
-export default Index;
+export default HomePage;
