@@ -59,7 +59,7 @@ Deno.serve(async (req: Request) => {
 
     // Fetch certificates with course details
     const { data: certificates, error } = await supabase
-      .from('certificates')
+      .from('student_certificates')
       .select(`
         id,
         course_id,
