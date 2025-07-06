@@ -4,8 +4,10 @@ import { supabase } from '@/integrations/supabase/client';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Progress } from '@/components/ui/progress';
 import { Badge } from '@/components/ui/badge';
-import { CheckCircle, Clock, BookOpen } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { CheckCircle, Clock, BookOpen, ArrowLeft, Award } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
+import { useNavigate } from 'react-router-dom';
 
 interface UserProgressData {
   id: string;
@@ -23,6 +25,7 @@ interface UserProgressData {
 export const UserProgress = () => {
   const { user } = useAuth();
   const { toast } = useToast();
+  const navigate = useNavigate();
   const [progressData, setProgressData] = useState<UserProgressData[]>([]);
   const [loading, setLoading] = useState(true);
 
@@ -96,7 +99,31 @@ export const UserProgress = () => {
   }
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 p-6">
+      {/* Header with navigation */}
+      <div className="flex items-center justify-between">
+        <div>
+          <h1 className="text-2xl font-bold">Learning Progress</h1>
+          <p className="text-gray-600">Track your progress through course content</p>
+        </div>
+        <div className="flex gap-3">
+          <Button
+            variant="outline"
+            onClick={() => navigate('/certificates')}
+            className="border-purple-200 text-purple-700 hover:bg-purple-50"
+          >
+            <Award className="h-4 w-4 mr-2" />
+            View My Certificates
+          </Button>
+          <Button
+            onClick={() => navigate('/student/dashboard')}
+            className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white"
+          >
+            <ArrowLeft className="h-4 w-4 mr-2" />
+            Go to Dashboard
+          </Button>
+        </div>
+      </div>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
@@ -138,8 +165,8 @@ export const UserProgress = () => {
 
       <Card>
         <CardHeader>
-          <CardTitle>Learning Progress</CardTitle>
-          <CardDescription>Track your progress through course content</CardDescription>
+          <CardTitle>Content Progress Details</CardTitle>
+          <CardDescription>Detailed progress through course content</CardDescription>
         </CardHeader>
         <CardContent>
           <div className="space-y-4">

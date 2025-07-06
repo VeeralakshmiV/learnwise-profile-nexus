@@ -291,7 +291,10 @@ const handlePreviewCourse = (courseId: string) => {
               <CardContent className="p-6">
                 <div>
                   {selectedCourse ? (
-                    <AssignmentManager courseId={selectedCourse.id} />
+                    <div className="p-6">
+                      <h3 className="text-lg font-bold mb-4">Assignments for {selectedCourse.title}</h3>
+                      <p className="text-gray-600">Assignment management functionality coming soon.</p>
+                    </div>
                   ) : (
                     <div className="text-center py-8">
                       <FileText className="h-12 w-12 text-gray-300 mx-auto mb-4" />

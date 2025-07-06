@@ -160,12 +160,12 @@ const AdminLayout: React.FC<AdminLayoutProps> = ({ children }) => {
             <div className="flex items-center space-x-3 p-3 rounded-xl bg-gradient-to-r from-gray-50 to-gray-100">
               <Avatar className="h-10 w-10 ring-2 ring-gray-200">
                 <AvatarFallback className="bg-gradient-to-br from-red-500 to-red-600 text-white font-semibold text-sm">
-                  {profile?.full_name.charAt(0).toUpperCase()}
+                  {profile?.full_name?.charAt(0)?.toUpperCase() || profile?.name?.charAt(0)?.toUpperCase() || profile?.email?.charAt(0)?.toUpperCase() || 'A'}
                 </AvatarFallback>
               </Avatar>
               <div className="flex-1 min-w-0">
                 <div className="flex items-center space-x-2">
-                  <span className="text-sm font-medium text-gray-900 truncate">{profile?.full_name}</span>
+                  <span className="text-sm font-medium text-gray-900 truncate">{profile?.full_name || profile?.name || profile?.email}</span>
                   <Crown className="h-4 w-4 text-red-600" />
                 </div>
                 <div className="text-xs text-gray-700">Administrator</div>

@@ -104,6 +104,8 @@ export type Database = {
       course_content: {
         Row: {
           content: string | null
+          content_data: Json | null
+          content_type: string | null
           created_at: string | null
           id: string
           order_index: number
@@ -114,6 +116,8 @@ export type Database = {
         }
         Insert: {
           content?: string | null
+          content_data?: Json | null
+          content_type?: string | null
           created_at?: string | null
           id?: string
           order_index?: number
@@ -124,6 +128,8 @@ export type Database = {
         }
         Update: {
           content?: string | null
+          content_data?: Json | null
+          content_type?: string | null
           created_at?: string | null
           id?: string
           order_index?: number

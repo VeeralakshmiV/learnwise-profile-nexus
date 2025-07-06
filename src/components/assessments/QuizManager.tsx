@@ -31,7 +31,7 @@ export const QuizManager: React.FC = () => {
 
   const [newQuestion, setNewQuestion] = useState({
     question_text: '',
-    question_type: 'mcq' as 'mcq' | 'true_false' | 'fill_blank',
+    question_type: 'multiple_choice' as 'multiple_choice' | 'true_false' | 'short_answer',
     options: ['', '', '', ''],
     correct_answer: '',
     points: 1
@@ -127,7 +127,7 @@ export const QuizManager: React.FC = () => {
         correct_answer: newQuestion.correct_answer,
         points: newQuestion.points,
         order_index: questions.length,
-        options: newQuestion.question_type === 'mcq' ? newQuestion.options.filter(opt => opt.trim()) : null
+        options: newQuestion.question_type === 'multiple_choice' ? newQuestion.options.filter(opt => opt.trim()) : null
       };
 
       const { data, error } = await supabase
@@ -141,7 +141,7 @@ export const QuizManager: React.FC = () => {
       setQuestions([...questions, data]);
       setNewQuestion({
         question_text: '',
-        question_type: 'mcq',
+        question_type: 'multiple_choice',
         options: ['', '', '', ''],
         correct_answer: '',
         points: 1
@@ -290,7 +290,7 @@ export const QuizManager: React.FC = () => {
                     <Label htmlFor="question-type">Question Type</Label>
                     <Select
                       value={newQuestion.question_type}
-                      onValueChange={(value: 'mcq' | 'true_false' | 'fill_blank') => 
+                      onValueChange={(value: 'multiple_choice' | 'true_false' | 'short_answer') => 
                         setNewQuestion({ ...newQuestion, question_type: value })
                       }
                     >
@@ -298,14 +298,14 @@ export const QuizManager: React.FC = () => {
                         <SelectValue />
                       </SelectTrigger>
                       <SelectContent>
-                        <SelectItem value="mcq">Multiple Choice</SelectItem>
+                        <SelectItem value="multiple_choice">Multiple Choice</SelectItem>
                         <SelectItem value="true_false">True/False</SelectItem>
-                        <SelectItem value="fill_blank">Fill in the Blank</SelectItem>
+                        <SelectItem value="short_answer">Short Answer</SelectItem>
                       </SelectContent>
                     </Select>
                   </div>
 
-                  {newQuestion.question_type === 'mcq' && (
+                  {newQuestion.question_type === 'multiple_choice' && (
                     <div className="space-y-2">
                       <Label>Options</Label>
                       {newQuestion.options.map((option, index) => (

@@ -67,7 +67,7 @@ export const UserManagement: React.FC = () => {
 
     if (error) throw new Error(error.message);
 
-    setUsers(data as User[]);
+    setUsers(data.map(profile => ({ ...profile, is_active: true })) as User[]);
   } catch (error: any) {
     toast({
       title: 'Error loading users',
@@ -188,7 +188,7 @@ export const UserManagement: React.FC = () => {
           : user
       );
 
-      saveUsers(updatedUsers);
+      setUsers(updatedUsers);
 
       toast({
         title: "Success",
@@ -214,7 +214,7 @@ export const UserManagement: React.FC = () => {
     try {
       // Mock user deletion - replace with Supabase delete later
       const updatedUsers = users.filter(user => user.id !== userId);
-      saveUsers(updatedUsers);
+      setUsers(updatedUsers);
 
       toast({
         title: "Success",
@@ -237,7 +237,7 @@ export const UserManagement: React.FC = () => {
       const updatedUsers = users.map(user =>
         user.id === userId ? { ...user, is_active: !user.is_active } : user
       );
-      saveUsers(updatedUsers);
+      setUsers(updatedUsers);
 
       toast({
         title: "Success",

@@ -79,6 +79,11 @@ function App() {
                 <Route path="progress" element={<UserProgress />} />
               </Route>
               
+              {/* Direct certificate access */}
+              <Route path="/certificates" element={<ProtectedRoute allowedRoles={['admin', 'staff', 'student']} />}>
+                <Route index element={<StudentCertificates />} />
+              </Route>
+              
               {/* <Route path="/course-viewer/:courseId" element={<CourseViewer />} /> */}
 
               {/* Catch all */}

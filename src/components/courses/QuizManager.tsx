@@ -44,7 +44,7 @@ export const QuizManager: React.FC<QuizManagerProps> = ({ courseId: propCourseId
   });
   const [questionForm, setQuestionForm] = useState({
     question_text: '',
-    question_type: 'mcq' as 'mcq' | 'true_false' | 'fill_blank',
+    question_type: 'multiple_choice' as 'multiple_choice' | 'true_false' | 'short_answer',
     options: ['', '', '', ''],
     correct_answer: '',
     points: 1
@@ -148,7 +148,7 @@ export const QuizManager: React.FC<QuizManagerProps> = ({ courseId: propCourseId
     setLoading(true);
     try {
       let options_data = null;
-      if (questionForm.question_type === 'mcq') {
+      if (questionForm.question_type === 'multiple_choice') {
         options_data = questionForm.options.filter(opt => opt.trim());
       } else if (questionForm.question_type === 'true_false') {
         options_data = ['True', 'False'];
@@ -175,7 +175,7 @@ export const QuizManager: React.FC<QuizManagerProps> = ({ courseId: propCourseId
       
       setQuestionForm({
         question_text: '',
-        question_type: 'mcq',
+        question_type: 'multiple_choice',
         options: ['', '', '', ''],
         correct_answer: '',
         points: 1
@@ -396,9 +396,9 @@ export const QuizManager: React.FC<QuizManagerProps> = ({ courseId: propCourseId
                                   <SelectValue />
                                 </SelectTrigger>
                                 <SelectContent>
-                                  <SelectItem value="mcq">Multiple Choice</SelectItem>
+                                  <SelectItem value="multiple_choice">Multiple Choice</SelectItem>
                                   <SelectItem value="true_false">True/False</SelectItem>
-                                  <SelectItem value="fill_blank">Fill in the Blank</SelectItem>
+                                  <SelectItem value="short_answer">Short Answer</SelectItem>
                                 </SelectContent>
                               </Select>
                             </div>
@@ -413,7 +413,7 @@ export const QuizManager: React.FC<QuizManagerProps> = ({ courseId: propCourseId
                             </div>
                           </div>
                           
-                          {questionForm.question_type === 'mcq' && (
+                          {questionForm.question_type === 'multiple_choice' && (
                             <div className="space-y-2">
                               <Label>Answer Options</Label>
                               {questionForm.options.map((option, index) => (

@@ -163,7 +163,7 @@ export const StaffDashboard: React.FC = () => {
   };
 
 const handlePreviewCourse = (courseId: string) => {
-  window.open(`/courses/${courseId}/preview`, '_blank');
+  window.open(`/courses/${courseId}`, '_blank');
 };
 
 
