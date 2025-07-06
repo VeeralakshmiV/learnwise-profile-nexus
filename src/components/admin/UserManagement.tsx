@@ -61,7 +61,7 @@ export const UserManagement: React.FC = () => {
     try {
       const { data, error } = await supabase
         .from('profiles')
-        .select('*')
+        .select('id, email, full_name, role, phone, address, profession, created_at')
         .order('created_at', { ascending: false });
 
       if (error) throw new Error(error.message);
@@ -135,7 +135,7 @@ export const UserManagement: React.FC = () => {
       if (authError) throw new Error(authError.message);
 
       if (authData.user) {
-        // Create profile record
+        // Create profile record with all fields
         const { error: profileError } = await supabase
           .from('profiles')
           .insert({
@@ -144,6 +144,9 @@ export const UserManagement: React.FC = () => {
             name: formData.full_name,
             full_name: formData.full_name,
             role: formData.role,
+            phone: formData.phone || null,
+            address: formData.address || null,
+            profession: formData.profession || null,
             created_at: new Date().toISOString(),
             updated_at: new Date().toISOString(),
           });
@@ -189,6 +192,9 @@ export const UserManagement: React.FC = () => {
           full_name: formData.full_name,
           name: formData.full_name,
           role: formData.role,
+          phone: formData.phone || null,
+          address: formData.address || null,
+          profession: formData.profession || null,
           updated_at: new Date().toISOString(),
         })
         .eq('id', selectedUser.id);
