@@ -238,22 +238,22 @@ const HomePage = () => {
             {/* Enhanced Desktop Navigation */}
             <div className="hidden lg:flex items-center space-x-8">
               <div className="flex items-center space-x-8">
-                {['Home', 'Courses', 'Testimonials', 'Contact'].map((item) => (
-                  <a
-                    key={item}
-                    href={`#${item.toLowerCase()}`}
+                {navItems.map((item) => (
+                  <button
+                    key={item.id}
+                    onClick={() => scrollToSection(item.id)}
                     className="relative text-gray-300 hover:text-white transition-all duration-300 group px-3 py-2 rounded-lg hover:bg-gray-800/50"
                   >
-                    <span className="relative z-10 font-medium">{item}</span>
+                    <span className="relative z-10 font-medium">{item.label}</span>
                     <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-blue-400 to-purple-400 transition-all duration-300 group-hover:w-full rounded-full"></span>
                     <div className="absolute inset-0 bg-gradient-to-r from-blue-500/10 to-purple-500/10 opacity-0 group-hover:opacity-100 rounded-lg transition-all duration-300"></div>
-                  </a>
+                  </button>
                 ))}
               </div>
               
             <div className="flex items-center space-x-4">
               <Button
-                onClick={() => setShowLoginModal(true)}
+                onClick={handleLoginClick}
                 className="hidden md:inline-flex bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white"
               >
                 <LogIn className="h-4 w-4 mr-2" />
@@ -284,15 +284,14 @@ const HomePage = () => {
           {mobileMenuOpen && (
             <div className="lg:hidden py-6 border-t border-gray-800/50 animate-fade-in bg-gray-900/50 backdrop-blur-xl rounded-b-2xl">
               <div className="flex flex-col space-y-4">
-                {['Home', 'Courses', 'Testimonials', 'Contact'].map((item) => (
-                  <a
-                    key={item}
-                    href={`#${item.toLowerCase()}`}
-                    className="text-gray-300 hover:text-white transition-all duration-300 py-3 px-4 rounded-lg hover:bg-gray-800/50 border-l-4 border-transparent hover:border-blue-400"
-                    onClick={() => setMobileMenuOpen(false)}
+                {navItems.map((item) => (
+                  <button
+                    key={item.id}
+                    onClick={() => scrollToSection(item.id)}
+                    className="text-gray-300 hover:text-white transition-all duration-300 py-3 px-4 rounded-lg hover:bg-gray-800/50 border-l-4 border-transparent hover:border-blue-400 text-left"
                   >
-                    {item}
-                  </a>
+                    {item.label}
+                  </button>
                 ))}
                 
                 <div className="pt-4 border-t border-gray-800/50">

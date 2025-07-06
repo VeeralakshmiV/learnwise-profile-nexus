@@ -88,10 +88,10 @@ export const AdminCourseManagement: React.FC = () => {
     fetchCourses();
   };
 
-const handlePreviewCourse = (courseId: string) => {
-  window.open(`/courses/${courseId}/preview`, '_blank');
-};
-
+  const handlePreviewCourse = (courseId: string) => {
+    // Open course preview in a new tab
+    window.open(`/courses/${courseId}`, '_blank');
+  };
 
   const handleManageQuizzes = (courseId: string) => {
     // Set the selected course and switch to quizzes tab
@@ -291,10 +291,7 @@ const handlePreviewCourse = (courseId: string) => {
               <CardContent className="p-6">
                 <div>
                   {selectedCourse ? (
-                    <div className="p-6">
-                      <h3 className="text-lg font-bold mb-4">Assignments for {selectedCourse.title}</h3>
-                      <p className="text-gray-600">Assignment management functionality coming soon.</p>
-                    </div>
+                    <AssignmentManager courseId={selectedCourse.id} />
                   ) : (
                     <div className="text-center py-8">
                       <FileText className="h-12 w-12 text-gray-300 mx-auto mb-4" />

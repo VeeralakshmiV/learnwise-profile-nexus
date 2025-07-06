@@ -13,7 +13,6 @@ import { useToast } from '@/hooks/use-toast';
 import { Search, Plus, Pencil, Power, Trash2, Eye, User, Phone, MapPin, Briefcase, Calendar } from 'lucide-react';
 import { supabase } from '@/integrations/supabase/client';
 
-
 interface User {
   id: string;
   email: string;
@@ -58,34 +57,30 @@ export const UserManagement: React.FC = () => {
   });
 
   const fetchUsers = async () => {
-  setIsLoading(true);
-  try {
-    const { data, error } = await supabase
-      .from('profiles')
-      .select('*')
-      .order('created_at', { ascending: false });
+    setIsLoading(true);
+    try {
+      const { data, error } = await supabase
+        .from('profiles')
+        .select('*')
+        .order('created_at', { ascending: false });
 
-    if (error) throw new Error(error.message);
+      if (error) throw new Error(error.message);
 
-    setUsers(data.map(profile => ({ ...profile, is_active: true })) as User[]);
-  } catch (error: any) {
-    toast({
-      title: 'Error loading users',
-      description: error.message,
-      variant: 'destructive',
-    });
-  } finally {
-    setIsLoading(false);
-  }
-};
-
-
-  // Empty initial state - users will be added dynamically
+      setUsers(data.map(profile => ({ ...profile, is_active: true })) as User[]);
+    } catch (error: any) {
+      toast({
+        title: 'Error loading users',
+        description: error.message,
+        variant: 'destructive',
+      });
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   useEffect(() => {
-  fetchUsers();
-}, []);
-
+    fetchUsers();
+  }, []);
 
   const filteredUsers = users.filter(user => {
     const matchesSearch = 
@@ -122,8 +117,8 @@ export const UserManagement: React.FC = () => {
 
     setIsLoading(true);
     try {
-      // Use Supabase directly to create user and let trigger handle profile
-      const { data, error } = await supabase.auth.signUp({
+      // Use Supabase auth to create user
+      const { data: authData, error: authError } = await supabase.auth.signUp({
         email: formData.email,
         password: formData.password,
         options: {
@@ -133,13 +128,28 @@ export const UserManagement: React.FC = () => {
             phone: formData.phone,
             address: formData.address,
             profession: formData.profession,
-            is_active: true,
-            created_at: new Date().toISOString(),
           }
         }
       });
 
-      if (error) throw new Error(error.message);
+      if (authError) throw new Error(authError.message);
+
+      if (authData.user) {
+        // Create profile record
+        const { error: profileError } = await supabase
+          .from('profiles')
+          .insert({
+            id: authData.user.id,
+            email: formData.email,
+            name: formData.full_name,
+            full_name: formData.full_name,
+            role: formData.role,
+            created_at: new Date().toISOString(),
+            updated_at: new Date().toISOString(),
+          });
+
+        if (profileError) throw new Error(profileError.message);
+      }
 
       toast({
         title: "Success",
@@ -148,7 +158,7 @@ export const UserManagement: React.FC = () => {
 
       setIsCreateDialogOpen(false);
       resetForm();
-      fetchUsers(); // Refresh user list
+      fetchUsers();
     } catch (error: any) {
       toast({
         title: "Error",
@@ -159,7 +169,6 @@ export const UserManagement: React.FC = () => {
       setIsLoading(false);
     }
   };
-
 
   const handleUpdateUser = async () => {
     if (!selectedUser || !formData.email || !formData.full_name) {
@@ -173,22 +182,18 @@ export const UserManagement: React.FC = () => {
 
     setIsLoading(true);
     try {
-      // Mock user update - replace with Supabase update later
-      const updatedUsers = users.map(user =>
-        user.id === selectedUser.id
-          ? {
-              ...user,
-              email: formData.email,
-              full_name: formData.full_name,
-              role: formData.role,
-              phone: formData.phone,
-              address: formData.address,
-              profession: formData.profession
-            }
-          : user
-      );
+      const { error } = await supabase
+        .from('profiles')
+        .update({
+          email: formData.email,
+          full_name: formData.full_name,
+          name: formData.full_name,
+          role: formData.role,
+          updated_at: new Date().toISOString(),
+        })
+        .eq('id', selectedUser.id);
 
-      setUsers(updatedUsers);
+      if (error) throw new Error(error.message);
 
       toast({
         title: "Success",
@@ -198,10 +203,11 @@ export const UserManagement: React.FC = () => {
       setIsEditDialogOpen(false);
       setSelectedUser(null);
       resetForm();
-    } catch (error) {
+      fetchUsers();
+    } catch (error: any) {
       toast({
         title: "Error",
-        description: "Failed to update user.",
+        description: error.message || "Failed to update user.",
         variant: "destructive"
       });
     } finally {
@@ -212,18 +218,23 @@ export const UserManagement: React.FC = () => {
   const handleDeleteUser = async (userId: string) => {
     setIsLoading(true);
     try {
-      // Mock user deletion - replace with Supabase delete later
-      const updatedUsers = users.filter(user => user.id !== userId);
-      setUsers(updatedUsers);
+      const { error } = await supabase
+        .from('profiles')
+        .delete()
+        .eq('id', userId);
+
+      if (error) throw new Error(error.message);
 
       toast({
         title: "Success",
         description: "User deleted successfully."
       });
-    } catch (error) {
+
+      fetchUsers();
+    } catch (error: any) {
       toast({
         title: "Error",
-        description: "Failed to delete user.",
+        description: error.message || "Failed to delete user.",
         variant: "destructive"
       });
     } finally {
@@ -234,6 +245,7 @@ export const UserManagement: React.FC = () => {
   const handleToggleStatus = async (userId: string) => {
     setIsLoading(true);
     try {
+      // For now, just update the local state since we don't have an is_active column
       const updatedUsers = users.map(user =>
         user.id === userId ? { ...user, is_active: !user.is_active } : user
       );
