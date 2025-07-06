@@ -84,8 +84,8 @@ export const UserManagement: React.FC = () => {
 
   const filteredUsers = users.filter(user => {
     const matchesSearch = 
-      user.full_name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      user.email.toLowerCase().includes(searchTerm.toLowerCase());
+      (user.full_name || '').toLowerCase().includes(searchTerm.toLowerCase()) ||
+      (user.email || '').toLowerCase().includes(searchTerm.toLowerCase());
     const matchesRole = roleFilter === 'all' || user.role === roleFilter;
     return matchesSearch && matchesRole;
   });
@@ -311,8 +311,8 @@ export const UserManagement: React.FC = () => {
               <TableBody>
                 {users.map((user) => (
                   <TableRow key={user.id}>
-                    <TableCell className="font-medium">{user.full_name}</TableCell>
-                    <TableCell>{user.email}</TableCell>
+                    <TableCell className="font-medium">{user.full_name || '-'}</TableCell>
+                    <TableCell>{user.email || '-'}</TableCell>
                     <TableCell>{user.phone || '-'}</TableCell>
                     <TableCell>{user.profession || '-'}</TableCell>
                     <TableCell>
@@ -357,7 +357,7 @@ export const UserManagement: React.FC = () => {
                             <AlertDialogHeader>
                               <AlertDialogTitle>Delete User</AlertDialogTitle>
                               <AlertDialogDescription>
-                                Are you sure you want to delete {user.full_name}? This action cannot be undone.
+                                Are you sure you want to delete {user.full_name || user.email}? This action cannot be undone.
                               </AlertDialogDescription>
                             </AlertDialogHeader>
                             <AlertDialogFooter>
@@ -631,7 +631,7 @@ export const UserManagement: React.FC = () => {
                   <User className="h-8 w-8 text-primary" />
                 </div>
                 <div>
-                  <h3 className="text-lg font-semibold">{selectedUser.full_name}</h3>
+                  <h3 className="text-lg font-semibold">{selectedUser.full_name || 'No Name'}</h3>
                   <Badge variant={selectedUser.is_active ? "default" : "secondary"}>
                     {selectedUser.role.charAt(0).toUpperCase() + selectedUser.role.slice(1)}
                   </Badge>
@@ -641,7 +641,7 @@ export const UserManagement: React.FC = () => {
               <div className="space-y-3">
                 <div className="flex items-center space-x-2">
                   <User className="h-4 w-4 text-muted-foreground" />
-                  <span className="text-sm">{selectedUser.email}</span>
+                  <span className="text-sm">{selectedUser.email || 'No Email'}</span>
                 </div>
                 {selectedUser.phone && (
                   <div className="flex items-center space-x-2">
