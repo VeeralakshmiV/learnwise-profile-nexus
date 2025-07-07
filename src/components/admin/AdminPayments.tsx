@@ -95,7 +95,7 @@ const fetchPayments = async () => {
       student_id: studentProfile.id,
       course_id: studentProfile.course_id,
       amount: paid,
-      status: balance > 0 ? 'pending' : 'completed' || 'pending',
+      status: balance > 0 ? 'pending' : 'completed',
       method: 'manual',
       paid_on: new Date().toISOString(),
     });

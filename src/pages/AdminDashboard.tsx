@@ -220,21 +220,31 @@ const AdminLayout: React.FC<AdminLayoutProps> = ({ children }) => {
                 </form>
               </div>
 
-              {/* New Course Button */}
-              <Link to="/admin/courses/new">
-                <Button className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white shadow-lg">
-                  <Plus className="h-4 w-4 mr-2" />
-                  New Course
-                </Button>
-              </Link>
+              {/* Quick Action Buttons */}
+              <div className="flex items-center space-x-3">
+                <Link to="/admin/users/new">
+                  <Button className="bg-gradient-to-r from-emerald-600 to-green-600 hover:from-emerald-700 hover:to-green-700 text-white shadow-lg">
+                    <Plus className="h-4 w-4 mr-2" />
+                    New User
+                  </Button>
+                </Link>
+                <Link to="/admin/courses/new">
+                  <Button className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white shadow-lg">
+                    <Plus className="h-4 w-4 mr-2" />
+                    New Course
+                  </Button>
+                </Link>
+              </div>
 
               {/* Notifications */}
-              <Button variant="ghost" size="sm" className="relative">
-                <Bell className="h-5 w-5 text-gray-600" />
-                <Badge className="absolute -top-1 -right-1 h-5 w-5 p-0 text-xs bg-red-500 hover:bg-red-500">
-                  3
-                </Badge>
-              </Button>
+              <Link to="/admin/inquiries">
+                <Button variant="ghost" size="sm" className="relative hover:bg-gray-50">
+                  <Bell className="h-5 w-5 text-gray-600" />
+                  <Badge className="absolute -top-1 -right-1 h-5 w-5 p-0 text-xs bg-red-500 hover:bg-red-500">
+                    3
+                  </Badge>
+                </Button>
+              </Link>
 
               {/* Settings */}
               <Link to="/admin/settings">
@@ -247,7 +257,7 @@ const AdminLayout: React.FC<AdminLayoutProps> = ({ children }) => {
         </header>
 
         {/* Page Content */}
-        <main className="flex-1 overflow-y-auto m-[30px]">
+        <main className="flex-1 overflow-y-auto p-4 md:p-6 lg:p-8">
           {children}
         </main>
       </div>

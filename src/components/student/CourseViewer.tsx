@@ -141,9 +141,9 @@ export const CourseViewer: React.FC = () => {
   };
 
   const renderContent = (content: CourseContent) => {
-    if (!content.content_data) return null;
+    if (!content.content) return null;
 
-    const contentData = content.content_data as any;
+    const contentData = content.content as any;
 
     switch (content.content_type) {
       case 'text':

@@ -21,7 +21,6 @@ interface CourseDiscussion {
   updated_at: string;
   profiles: {
     full_name: string;
-    avatar_url: string | null;
   } | null;
 }
 
@@ -54,8 +53,7 @@ export const CourseDiscussions = ({ courseId, isInstructor = false }: CourseDisc
         .select(`
           *,
           profiles (
-            full_name,
-            avatar_url
+            full_name
           )
         `)
         .eq('course_id', courseId)
@@ -210,7 +208,6 @@ export const CourseDiscussions = ({ courseId, isInstructor = false }: CourseDisc
               <div className="flex items-start justify-between">
                 <div className="flex items-start space-x-3">
                   <Avatar className="h-8 w-8">
-                    <AvatarImage src={discussion.profiles?.avatar_url || ''} />
                     <AvatarFallback>
                       {discussion.profiles?.full_name 
                         ? getInitials(discussion.profiles.full_name)

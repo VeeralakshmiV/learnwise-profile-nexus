@@ -191,21 +191,31 @@ export const Navbar: React.FC = () => {
 
             {/* Quick Actions */}
             {(canAccessAdminDashboard || canAccessStaffDashboard) && (
-              <Link to="/admin/courses/new">
-                <Button size="sm" className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white shadow-lg hover:shadow-xl transition-all duration-200">
-                  <Plus className="h-4 w-4 mr-2" />
-                  New Course
-                </Button>
-              </Link>
+              <div className="hidden md:flex items-center space-x-2">
+                <Link to="/admin/users/new">
+                  <Button size="sm" className="bg-gradient-to-r from-emerald-600 to-green-600 hover:from-emerald-700 hover:to-green-700 text-white shadow-lg hover:shadow-xl transition-all duration-200">
+                    <Plus className="h-4 w-4 mr-2" />
+                    New User
+                  </Button>
+                </Link>
+                <Link to="/admin/courses/new">
+                  <Button size="sm" className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white shadow-lg hover:shadow-xl transition-all duration-200">
+                    <Plus className="h-4 w-4 mr-2" />
+                    New Course
+                  </Button>
+                </Link>
+              </div>
             )}
 
             {/* Notifications */}
-            <Button variant="ghost" size="sm" className="relative hover:bg-gray-50/80 rounded-xl">
-              <Bell className="h-5 w-5 text-gray-600" />
-              <Badge className="absolute -top-1 -right-1 h-5 w-5 p-0 text-xs bg-red-500 hover:bg-red-500 border-2 border-white">
-                3
-              </Badge>
-            </Button>
+            <Link to="/admin/inquiries">
+              <Button variant="ghost" size="sm" className="relative hover:bg-gray-50/80 rounded-xl">
+                <Bell className="h-5 w-5 text-gray-600" />
+                <Badge className="absolute -top-1 -right-1 h-5 w-5 p-0 text-xs bg-red-500 hover:bg-red-500 border-2 border-white">
+                  3
+                </Badge>
+              </Button>
+            </Link>
 
             {/* Settings */}
             <Button variant="ghost" size="sm" className="hover:bg-gray-50/80 rounded-xl">
@@ -325,6 +335,24 @@ export const Navbar: React.FC = () => {
                   </Link>
                 );
               })}
+              
+              {/* Mobile Quick Actions */}
+              {(canAccessAdminDashboard || canAccessStaffDashboard) && (
+                <div className="pt-4 border-t border-gray-200/50 space-y-2">
+                  <Link to="/admin/users/new" onClick={() => setIsMobileMenuOpen(false)}>
+                    <Button size="sm" className="w-full bg-gradient-to-r from-emerald-600 to-green-600 hover:from-emerald-700 hover:to-green-700 text-white">
+                      <Plus className="h-4 w-4 mr-2" />
+                      New User
+                    </Button>
+                  </Link>
+                  <Link to="/admin/courses/new" onClick={() => setIsMobileMenuOpen(false)}>
+                    <Button size="sm" className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white">
+                      <Plus className="h-4 w-4 mr-2" />
+                      New Course
+                    </Button>
+                  </Link>
+                </div>
+              )}
             </div>
           </div>
         )}

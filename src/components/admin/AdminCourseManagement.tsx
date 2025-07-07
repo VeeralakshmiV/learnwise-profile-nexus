@@ -291,7 +291,7 @@ export const AdminCourseManagement: React.FC = () => {
               <CardContent className="p-6">
                 <div>
                   {selectedCourse ? (
-                    <AssignmentManager courseId={selectedCourse.id} />
+                    <AssignmentManager courseId={selectedCourse.id} onClose={() => setPreviewingCourse(null)} />
                   ) : (
                     <div className="text-center py-8">
                       <FileText className="h-12 w-12 text-gray-300 mx-auto mb-4" />

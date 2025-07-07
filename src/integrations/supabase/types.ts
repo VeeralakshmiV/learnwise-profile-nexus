@@ -104,7 +104,6 @@ export type Database = {
       course_content: {
         Row: {
           content: string | null
-          content_data: Json | null
           content_type: string | null
           created_at: string | null
           id: string
@@ -116,7 +115,6 @@ export type Database = {
         }
         Insert: {
           content?: string | null
-          content_data?: Json | null
           content_type?: string | null
           created_at?: string | null
           id?: string
@@ -128,7 +126,6 @@ export type Database = {
         }
         Update: {
           content?: string | null
-          content_data?: Json | null
           content_type?: string | null
           created_at?: string | null
           id?: string
@@ -182,6 +179,13 @@ export type Database = {
             columns: ["course_id"]
             isOneToOne: false
             referencedRelation: "courses"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "fk_discussion_profile"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
             referencedColumns: ["id"]
           },
         ]
@@ -452,8 +456,10 @@ export type Database = {
       }
       profiles: {
         Row: {
+          course_id: string | null
           created_at: string | null
           email: string
+          fees: number | null
           full_name: string | null
           id: string
           name: string
@@ -461,8 +467,10 @@ export type Database = {
           updated_at: string | null
         }
         Insert: {
+          course_id?: string | null
           created_at?: string | null
           email: string
+          fees?: number | null
           full_name?: string | null
           id: string
           name: string
@@ -470,15 +478,32 @@ export type Database = {
           updated_at?: string | null
         }
         Update: {
+          course_id?: string | null
           created_at?: string | null
           email?: string
+          fees?: number | null
           full_name?: string | null
           id?: string
           name?: string
           role?: string
           updated_at?: string | null
         }
-        Relationships: []
+        Relationships: [
+          {
+            foreignKeyName: "fk_course"
+            columns: ["course_id"]
+            isOneToOne: false
+            referencedRelation: "courses"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "fk_profile_course"
+            columns: ["course_id"]
+            isOneToOne: false
+            referencedRelation: "courses"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       quiz_attempts: {
         Row: {

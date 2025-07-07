@@ -146,7 +146,7 @@ export const CourseViewer: React.FC = () => {
   const renderContent = () => {
     if (!selectedContent) return <p>Select a lesson to start learning.</p>;
 
-    const data = selectedContent.content_data as any;
+    const data = selectedContent.content as any;
     switch (selectedContent.content_type) {
       case 'video':
         return (

@@ -66,7 +66,7 @@ export const UserManagement: React.FC = () => {
 
       if (error) throw new Error(error.message);
 
-      setUsers(data.map(profile => ({ ...profile, is_active: true })) as User[]);
+      setUsers(data || []);
     } catch (error: any) {
       toast({
         title: 'Error loading users',
