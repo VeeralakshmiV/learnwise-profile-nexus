@@ -66,7 +66,13 @@ export const UserManagement: React.FC = () => {
 
       if (error) throw new Error(error.message);
 
-      setUsers(data || []);
+      // Map the data and add the missing is_active property with proper type casting
+      const usersWithActiveStatus = (data || []).map(user => ({
+        ...user,
+        role: user.role as 'student' | 'staff' | 'admin',
+        is_active: true // Default to active since we don't have this column in the database yet
+      }));
+      setUsers(usersWithActiveStatus);
     } catch (error: any) {
       toast({
         title: 'Error loading users',

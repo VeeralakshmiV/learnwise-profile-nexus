@@ -13,8 +13,13 @@ import { Plus, FileText, Calendar } from 'lucide-react';
 type Assignment = Tables<'assignments'>;
 type AssignmentSubmission = Tables<'assignment_submissions'>;
 
-export const AssignmentManager: React.FC = () => {
-  const { courseId } = useParams();
+interface AssignmentManagerProps {
+  courseId?: string;
+}
+
+export const AssignmentManager: React.FC<AssignmentManagerProps> = ({ courseId: propCourseId }) => {
+  const { courseId: paramCourseId } = useParams();
+  const courseId = propCourseId || paramCourseId;
   const { toast } = useToast();
   const [assignments, setAssignments] = useState<Assignment[]>([]);
   const [submissions, setSubmissions] = useState<AssignmentSubmission[]>([]);
