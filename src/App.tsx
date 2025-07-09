@@ -16,7 +16,7 @@ import { QuizManager } from './components/staff/QuizManager';
 import { AssignmentManager } from './components/staff/AssignmentManager';
 import { CourseViewer } from './components/courses/CourseViewer';
 import NotFound from './pages/NotFound';
-import HomePage from './pages/HomePage';
+import Home from '@/pages/home';
 import { LoginForm } from './components/auth/LoginForm';
 import { InquiryManagement } from './components/admin/InquiryManagement';
 import AdminPayments from './components/admin/AdminPayments';
@@ -35,7 +35,7 @@ function App() {
             <Toaster />
             <Routes>
               {/* Public Routes */}
-              <Route path="/" element={<HomePage />} />
+              <Route path="/" element={<Home />} />
               <Route path="/home" element={<HomePage />} />
               <Route path="/login" element={<LoginForm />} />            
               <Route path="courses/:id" element={<CourseViewer />} />
