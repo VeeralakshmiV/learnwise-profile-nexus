@@ -1,239 +1,183 @@
 import React from 'react';
-import { Card, CardContent, CardHeader } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
-import { Badge } from '@/components/ui/badge';
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
-} from '@/components/ui/carousel';
-import { Star, Clock, Users, BookOpen, Play } from 'lucide-react';
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { Star, Clock, Users, ChevronLeft, ChevronRight } from 'lucide-react';
+import { useState } from 'react';
 
-interface Course {
-  id: string;
-  title: string;
-  description: string;
-  image: string;
-  instructor: string;
-  rating: number;
-  students: number;
-  duration: string;
-  price: number;
-  originalPrice?: number;
-  level: 'Beginner' | 'Intermediate' | 'Advanced';
-  category: string;
-}
-
-const courses: Course[] = [
+const courses = [
   {
-    id: '1',
-    title: 'Complete Web Development Bootcamp',
-    description: 'Learn HTML, CSS, JavaScript, React, Node.js and more in this comprehensive course.',
-    image: 'https://images.pexels.com/photos/11035380/pexels-photo-11035380.jpeg?auto=compress&cs=tinysrgb&w=500',
-    instructor: 'Dr. Angela Yu',
+    id: 1,
+    title: "Full Stack Web Development",
+    description: "Master modern web development with React, Node.js, and databases",
+    price: "$299",
+    originalPrice: "$599",
+    duration: "12 weeks",
+    students: "2,500+",
     rating: 4.9,
-    students: 45678,
-    duration: '65 hours',
-    price: 2999,
-    originalPrice: 4999,
-    level: 'Beginner',
-    category: 'Web Development'
+    image: "/thumbnails/a1.jpg",
+    level: "Beginner to Advanced"
   },
   {
-    id: '2',
-    title: 'Python for Data Science',
-    description: 'Master Python programming and data analysis with pandas, numpy, and matplotlib.',
-    image: 'https://images.pexels.com/photos/1181671/pexels-photo-1181671.jpeg?auto=compress&cs=tinysrgb&w=500',
-    instructor: 'Jose Portilla',
+    id: 2,
+    title: "Data Science & AI",
+    description: "Learn Python, machine learning, and artificial intelligence",
+    price: "$399",
+    originalPrice: "$799",
+    duration: "16 weeks",
+    students: "1,800+",
     rating: 4.8,
-    students: 32145,
-    duration: '42 hours',
-    price: 2499,
-    originalPrice: 3999,
-    level: 'Intermediate',
-    category: 'Data Science'
+    image: "/thumbnails/a2.jpg",
+    level: "Intermediate"
   },
   {
-    id: '3',
-    title: 'UI/UX Design Masterclass',
-    description: 'Learn design thinking, prototyping, and create stunning user interfaces.',
-    image: 'https://images.pexels.com/photos/196644/pexels-photo-196644.jpeg?auto=compress&cs=tinysrgb&w=500',
-    instructor: 'Daniel Schifano',
-    rating: 4.7,
-    students: 28934,
-    duration: '38 hours',
-    price: 1999,
-    originalPrice: 3499,
-    level: 'Beginner',
-    category: 'Design'
-  },
-  {
-    id: '4',
-    title: 'Machine Learning A-Z',
-    description: 'Complete hands-on machine learning tutorial with Python and R.',
-    image: 'https://images.pexels.com/photos/8386440/pexels-photo-8386440.jpeg?auto=compress&cs=tinysrgb&w=500',
-    instructor: 'Kirill Eremenko',
+    id: 3,
+    title: "Cloud Computing with AWS",
+    description: "Become an AWS certified cloud architect and engineer",
+    price: "$349",
+    originalPrice: "$699",
+    duration: "10 weeks",
+    students: "1,200+",
     rating: 4.9,
-    students: 67890,
-    duration: '44 hours',
-    price: 3499,
-    originalPrice: 5999,
-    level: 'Advanced',
-    category: 'AI & ML'
+    image: "/thumbnails/a3.jpg",
+    level: "Intermediate"
   },
   {
-    id: '5',
-    title: 'Digital Marketing Complete Course',
-    description: 'Master SEO, social media marketing, Google Ads, and content marketing.',
-    image: 'https://images.pexels.com/photos/265087/pexels-photo-265087.jpeg?auto=compress&cs=tinysrgb&w=500',
-    instructor: 'Neil Patel',
-    rating: 4.6,
-    students: 23456,
-    duration: '32 hours',
-    price: 1799,
-    originalPrice: 2999,
-    level: 'Beginner',
-    category: 'Marketing'
+    id: 4,
+    title: "Mobile App Development",
+    description: "Build iOS and Android apps with React Native",
+    price: "$279",
+    originalPrice: "$559",
+    duration: "8 weeks",
+    students: "900+",
+    rating: 4.7,
+    image: "/thumbnails/a4.jpg",
+    level: "Beginner"
+  },
+  {
+    id: 5,
+    title: "Cybersecurity Specialist",
+    description: "Learn ethical hacking and cybersecurity fundamentals",
+    price: "$429",
+    originalPrice: "$859",
+    duration: "14 weeks",
+    students: "750+",
+    rating: 4.8,
+    image: "/thumbnails/a5.jpg",
+    level: "Advanced"
   }
 ];
 
-export const CourseCarousel: React.FC = () => {
-  const getLevelColor = (level: string) => {
-    switch (level) {
-      case 'Beginner':
-        return 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200';
-      case 'Intermediate':
-        return 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200';
-      case 'Advanced':
-        return 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200';
-      default:
-        return 'bg-gray-100 text-gray-800 dark:bg-gray-900 dark:text-gray-200';
-    }
+export const CourseCarousel = () => {
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const coursesPerView = 3;
+
+  const nextSlide = () => {
+    setCurrentIndex((prev) => 
+      prev + coursesPerView >= courses.length ? 0 : prev + 1
+    );
   };
 
+  const prevSlide = () => {
+    setCurrentIndex((prev) => 
+      prev === 0 ? courses.length - coursesPerView : prev - 1
+    );
+  };
+
+  const visibleCourses = courses.slice(currentIndex, currentIndex + coursesPerView);
+  if (visibleCourses.length < coursesPerView) {
+    visibleCourses.push(...courses.slice(0, coursesPerView - visibleCourses.length));
+  }
+
   return (
-    <div className="w-full">
-      <Carousel
-        opts={{
-          align: "start",
-          loop: true,
-        }}
-        className="w-full"
-      >
-        <CarouselContent className="-ml-2 md:-ml-4">
-          {courses.map((course) => (
-            <CarouselItem key={course.id} className="pl-2 md:pl-4 md:basis-1/2 lg:basis-1/3">
-              <Card className="h-full bg-white dark:bg-gray-900 border-0 shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-105 group overflow-hidden">
-                <div className="relative">
-                  <img
-                    src={course.image}
-                    alt={course.title}
-                    className="w-full h-48 object-cover group-hover:scale-110 transition-transform duration-300"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                  <div className="absolute top-4 left-4 right-4 flex justify-between items-start">
-                    <Badge className={getLevelColor(course.level)}>
+    <section className="py-20 bg-background">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="text-center mb-16">
+          <h2 className="text-4xl font-bold text-foreground mb-4">
+            Available Courses
+          </h2>
+          <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+            Choose from our comprehensive selection of industry-relevant courses designed to accelerate your career
+          </p>
+        </div>
+
+        <div className="relative">
+          <div className="flex items-center justify-between mb-8">
+            <Button
+              variant="outline"
+              size="icon"
+              onClick={prevSlide}
+              className="rounded-full bg-card hover:bg-muted"
+            >
+              <ChevronLeft className="h-6 w-6" />
+            </Button>
+            <Button
+              variant="outline"
+              size="icon"
+              onClick={nextSlide}
+              className="rounded-full bg-card hover:bg-muted"
+            >
+              <ChevronRight className="h-6 w-6" />
+            </Button>
+          </div>
+
+          <div className="grid md:grid-cols-3 gap-8">
+            {visibleCourses.map((course, index) => (
+              <Card key={`${course.id}-${index}`} className="group hover:shadow-xl transition-all duration-300 border-border bg-card">
+                <CardHeader className="p-0">
+                  <div className="relative overflow-hidden rounded-t-lg">
+                    <img
+                      src={course.image}
+                      alt={course.title}
+                      className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300"
+                    />
+                    <Badge className="absolute top-4 left-4 bg-accent text-accent-foreground">
                       {course.level}
                     </Badge>
-                    <Badge className="bg-blue-600 text-white">
-                      {course.category}
-                    </Badge>
-                  </div>
-                  <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                    <Button className="bg-white/20 backdrop-blur-md border border-white/30 text-white hover:bg-white/30">
-                      <Play className="h-5 w-5 mr-2" />
-                      Preview
-                    </Button>
-                  </div>
-                  {course.originalPrice && (
-                    <div className="absolute top-4 right-4">
-                      <Badge className="bg-red-500 text-white">
-                        {Math.round(((course.originalPrice - course.price) / course.originalPrice) * 100)}% OFF
-                      </Badge>
-                    </div>
-                  )}
-                </div>
-
-                <CardHeader className="pb-3">
-                  <div className="space-y-2">
-                    <h3 className="font-bold text-lg leading-tight text-gray-900 dark:text-white line-clamp-2">
-                      {course.title}
-                    </h3>
-                    <p className="text-sm text-gray-600 dark:text-gray-400 line-clamp-2">
-                      {course.description}
-                    </p>
-                    <p className="text-sm font-medium text-gray-700 dark:text-gray-300">
-                      by {course.instructor}
-                    </p>
                   </div>
                 </CardHeader>
-
-                <CardContent className="pt-0 space-y-4">
-                  {/* Rating and Stats */}
-                  <div className="flex items-center justify-between text-sm">
-                    <div className="flex items-center space-x-1">
-                      <div className="flex items-center">
-                        {[...Array(5)].map((_, i) => (
-                          <Star
-                            key={i}
-                            className={`h-4 w-4 ${
-                              i < Math.floor(course.rating)
-                                ? 'text-yellow-400 fill-current'
-                                : 'text-gray-300 dark:text-gray-600'
-                            }`}
-                          />
-                        ))}
-                      </div>
-                      <span className="font-medium text-gray-900 dark:text-white">
-                        {course.rating}
-                      </span>
-                      <span className="text-gray-500 dark:text-gray-400">
-                        ({course.students.toLocaleString()})
-                      </span>
+                
+                <CardContent className="p-6">
+                  <CardTitle className="text-xl font-bold text-card-foreground mb-3 line-clamp-2">
+                    {course.title}
+                  </CardTitle>
+                  
+                  <p className="text-muted-foreground mb-4 line-clamp-2">
+                    {course.description}
+                  </p>
+                  
+                  <div className="flex items-center gap-4 text-sm text-muted-foreground mb-4">
+                    <div className="flex items-center gap-1">
+                      <Clock className="h-4 w-4" />
+                      <span>{course.duration}</span>
+                    </div>
+                    <div className="flex items-center gap-1">
+                      <Users className="h-4 w-4" />
+                      <span>{course.students}</span>
+                    </div>
+                    <div className="flex items-center gap-1">
+                      <Star className="h-4 w-4 fill-yellow-400 text-yellow-400" />
+                      <span>{course.rating}</span>
                     </div>
                   </div>
-
-                  {/* Course Info */}
-                  <div className="flex items-center justify-between text-sm text-gray-600 dark:text-gray-400">
-                    <div className="flex items-center space-x-4">
-                      <div className="flex items-center space-x-1">
-                        <Clock className="h-4 w-4" />
-                        <span>{course.duration}</span>
-                      </div>
-                      <div className="flex items-center space-x-1">
-                        <Users className="h-4 w-4" />
-                        <span>{course.students.toLocaleString()}</span>
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Price and CTA */}
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center space-x-2">
-                      <span className="text-2xl font-bold text-gray-900 dark:text-white">
-                        ₹{course.price}
-                      </span>
-                      {course.originalPrice && (
-                        <span className="text-lg text-gray-500 dark:text-gray-400 line-through">
-                          ₹{course.originalPrice}
-                        </span>
-                      )}
-                    </div>
-                    <Button className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white">
-                      <BookOpen className="h-4 w-4 mr-2" />
-                      Enroll Now
-                    </Button>
+                  
+                  <div className="flex items-center gap-2 mb-4">
+                    <span className="text-2xl font-bold text-primary">{course.price}</span>
+                    <span className="text-lg text-muted-foreground line-through">{course.originalPrice}</span>
+                    <Badge variant="destructive" className="text-xs">50% OFF</Badge>
                   </div>
                 </CardContent>
+                
+                <CardFooter className="p-6 pt-0">
+                  <Button className="w-full bg-primary hover:bg-primary/90 text-primary-foreground">
+                    Enroll Now
+                  </Button>
+                </CardFooter>
               </Card>
-            </CarouselItem>
-          ))}
-        </CarouselContent>
-        <CarouselPrevious className="hidden md:flex" />
-        <CarouselNext className="hidden md:flex" />
-      </Carousel>
-    </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
   );
 };
