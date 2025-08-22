@@ -81,6 +81,15 @@ const Home = () => {
     }
   ];
 
+  const offers = [
+    { text: "50% OFF Full Stack Course", color: "from-red-500 to-red-600" },
+    { text: "Free Certification", color: "from-green-500 to-green-600" },
+    { text: "Lifetime Access", color: "from-blue-500 to-blue-600" },
+    { text: "1-on-1 Mentorship", color: "from-purple-500 to-purple-600" },
+    { text: "Job Guarantee", color: "from-orange-500 to-orange-600" },
+    { text: "Money Back Guarantee", color: "from-pink-500 to-pink-600" }
+  ];
+
   return (
     <div className="min-h-screen">
       {/* Countdown Timer */}
@@ -157,111 +166,39 @@ const Home = () => {
         </div>
       </header>
 
-      {/* Hero Section */}
+      {/* Special Offers Section */}
       <section className="relative bg-gradient-to-br from-blue-600 via-blue-700 to-blue-900 text-white py-20 overflow-hidden">
         <div className="absolute inset-0 opacity-10">
-          <div className="w-full h-full bg-repeat" style={{backgroundImage: "url(\"data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Ccircle cx='30' cy='30' r='1'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E\")"}}></div>
+          <div
+            className="w-full h-full bg-repeat"
+            style={{
+              backgroundImage:
+                "url(\"data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Ccircle cx='30' cy='30' r='1'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E\")",
+            }}
+          ></div>
         </div>
-        
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
-            {/* Left Content */}
-            <div className="space-y-8">
-              <Badge className="bg-accent text-accent-foreground w-fit">
-                🚀 Join 50,000+ Successful Students
-              </Badge>
-              
-              <h1 className="text-4xl lg:text-6xl font-bold leading-tight">
-                Transform Your Career with{' '}
-                <span className="bg-gradient-to-r from-accent to-blue-300 bg-clip-text text-transparent">
-                  Alpha Fly
-                </span>
-              </h1>
-              
-              <p className="text-xl text-blue-100 leading-relaxed">
-                Master in-demand skills through our comprehensive courses designed by industry experts. 
-                Get job-ready in just 12 weeks with hands-on projects and personalized mentorship.
-              </p>
-              
-              <div className="flex flex-col sm:flex-row gap-4">
-                <Button size="lg" className="bg-accent hover:bg-accent/90 text-accent-foreground px-8 py-6 text-lg font-semibold">
-                  Start Learning Today
-                  <ChevronRight className="ml-2 h-5 w-5" />
-                </Button>
-                <Button size="lg" variant="outline" className="border-white text-white hover:bg-white hover:text-blue-900 px-8 py-6 text-lg">
-                  Watch Demo
-                  <Play className="ml-2 h-5 w-5" />
-                </Button>
-              </div>
 
-              {/* Stats */}
-              <div className="grid grid-cols-3 gap-8 pt-8">
-                <div className="text-center">
-                  <div className="text-3xl font-bold text-accent">50K+</div>
-                  <div className="text-blue-200 text-sm">Students</div>
+        <div className="container mx-auto px-6 relative">
+          {/* Special Offers Marquee */}
+          <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-4 shadow-2xl border border-white/20 mb-12">
+            <div className="flex flex-col lg:flex-row items-center justify-center gap-4">
+              {/* Title */}
+              <h2 className="text-2xl md:text-3xl font-bold text-white text-center">
+                🎉 Special Offers 🎉
+              </h2>
+              {/* Marquee */}
+              <span className="overflow-hidden whitespace-nowrap w-full lg:w-auto flex-1">
+                <div className="flex animate-marquee-left">
+                  {[...offers, ...offers].map((offer, index) => (
+                    <span
+                      key={index}
+                      className={`inline-block bg-gradient-to-r ${offer.color} text-white px-4 py-2 mx-3 rounded-full font-bold text-sm md:text-base`}
+                    >
+                      {offer.text}
+                    </span>
+                  ))}
                 </div>
-                <div className="text-center">
-                  <div className="text-3xl font-bold text-accent">95%</div>
-                  <div className="text-blue-200 text-sm">Success Rate</div>
-                </div>
-                <div className="text-center">
-                  <div className="text-3xl font-bold text-accent">4.9★</div>
-                  <div className="text-blue-200 text-sm">Rating</div>
-                </div>
-              </div>
-            </div>
-
-            {/* Right Content - Hero Image */}
-            <div className="relative">
-              <div className="relative bg-white/10 backdrop-blur-sm rounded-2xl p-8">
-                <img
-                  src="/lovable-uploads/5e66a2e4-499d-45ae-a268-c89458064c22.png"
-                  alt="Student learning with tablet"
-                  className="w-full h-auto rounded-lg"
-                />
-                <div className="absolute -top-4 -right-4 bg-accent text-accent-foreground px-4 py-2 rounded-lg font-semibold">
-                  50% OFF
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* Video Sub-sections */}
-          <div className="mt-20">
-            <div className="text-center mb-12">
-              <h3 className="text-2xl font-bold mb-4">Get a Taste of Our Learning Experience</h3>
-              <p className="text-blue-100">Watch these sample lessons from our most popular courses</p>
-            </div>
-
-            <div className="grid md:grid-cols-3 gap-8">
-              {videos.map((video) => (
-                <Card key={video.id} className="bg-white/10 backdrop-blur-sm border-white/20 overflow-hidden hover:bg-white/20 transition-all">
-                  <CardContent className="p-0">
-                    <div className="relative">
-                      <video
-                        className="w-full h-48 object-cover"
-                        controls
-                        preload="metadata"
-                        poster={video.thumbnail}
-                      >
-                        <source src={video.src} type="video/mp4" />
-                        Your browser does not support the video tag.
-                      </video>
-                      <div className="absolute inset-0 bg-black/20 hover:bg-black/10 transition-colors flex items-center justify-center">
-                        <Play className="h-12 w-12 text-white opacity-80 hover:opacity-100 transition-opacity" />
-                      </div>
-                    </div>
-                    <div className="p-6">
-                      <h4 className="text-lg font-semibold text-white mb-2">
-                        {video.title}
-                      </h4>
-                      <p className="text-blue-100 text-sm">
-                        Experience our hands-on approach to learning with real-world projects.
-                      </p>
-                    </div>
-                  </CardContent>
-                </Card>
-              ))}
+              </span>
             </div>
           </div>
         </div>
