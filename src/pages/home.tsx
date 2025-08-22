@@ -165,7 +165,8 @@ const Home = () => {
           )}
         </div>
       </header>
-            <section className="relative bg-gradient-to-br from-blue-600 via-blue-700 to-blue-900 text-white py-20 overflow-hidden">
+      {/* Hero Section with Special Offers */}
+      <section className="relative text-white py-20 overflow-hidden" style={{ background: 'linear-gradient(135deg, #0082fb 0%, #0064e0 100%)' }}>
         <div className="absolute inset-0 opacity-10">
           <div
             className="w-full h-full bg-repeat"
