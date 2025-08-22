@@ -165,9 +165,7 @@ const Home = () => {
           )}
         </div>
       </header>
-
-      {/* Special Offers Section */}
-      <section className="relative bg-gradient-to-br from-blue-600 via-blue-700 to-blue-900 text-white py-20 overflow-hidden">
+            <section className="relative bg-gradient-to-br from-blue-600 via-blue-700 to-blue-900 text-white py-20 overflow-hidden">
         <div className="absolute inset-0 opacity-10">
           <div
             className="w-full h-full bg-repeat"
@@ -181,7 +179,11 @@ const Home = () => {
         <div className="container mx-auto px-6 relative">
           {/* Special Offers Marquee */}
           <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-4 shadow-2xl border border-white/20 mb-12">
+          
             <div className="flex flex-col lg:flex-row items-center justify-center gap-4">
+              <Badge className="bg-accent text-accent-foreground w-fit">
+                🚀 Join 50,000+ Successful Students
+              </Badge>
               {/* Title */}
               <h2 className="text-2xl md:text-3xl font-bold text-white text-center">
                 🎉 Special Offers 🎉
@@ -200,9 +202,63 @@ const Home = () => {
                 </div>
               </span>
             </div>
+            <div className="grid grid-cols-3 gap-8 pt-8">
+                <div className="text-center">
+                  <div className="text-3xl font-bold text-accent">50K+</div>
+                  <div className="text-blue-200 text-sm">Students</div>
+                </div>
+                <div className="text-center">
+                  <div className="text-3xl font-bold text-accent">95%</div>
+                  <div className="text-blue-200 text-sm">Success Rate</div>
+                </div>
+                <div className="text-center">
+                  <div className="text-3xl font-bold text-accent">4.9★</div>
+                  <div className="text-blue-200 text-sm">Rating</div>
+                </div>
+              </div>
           </div>
         </div>
+              {/* Hero Section */}
+                  <div className="mt-20">
+            <div className="text-center mb-12">
+              <h3 className="text-2xl font-bold mb-4">Get a Taste of Our Learning Experience</h3>
+              <p className="text-blue-100">Watch these sample lessons from our most popular courses</p>
+            </div>
+
+            <div className="grid md:grid-cols-3 gap-8">
+              {videos.map((video) => (
+                <Card key={video.id} className="bg-white/10 backdrop-blur-sm border-white/20 overflow-hidden hover:bg-white/20 transition-all">
+                  <CardContent className="p-0">
+                    <div className="relative">
+                      <video
+                        className="w-full h-48 object-cover"
+                        controls
+                        preload="metadata"
+                        poster={video.thumbnail}
+                      >
+                        <source src={video.src} type="video/mp4" />
+                        Your browser does not support the video tag.
+                      </video>
+                      <div className="absolute inset-0 bg-black/20 hover:bg-black/10 transition-colors flex items-center justify-center">
+                        <Play className="h-12 w-12 text-white opacity-80 hover:opacity-100 transition-opacity" />
+                      </div>
+                    </div>
+                    <div className="p-6">
+                      <h4 className="text-lg font-semibold text-white mb-2">
+                        {video.title}
+                      </h4>
+                      <p className="text-blue-100 text-sm">
+                        Experience our hands-on approach to learning with real-world projects.
+                      </p>
+                    </div>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+          </div>
       </section>
+
+
 
       {/* Why Choose Alpha Fly */}
       <section id="why-choose" className="py-20 bg-background">
