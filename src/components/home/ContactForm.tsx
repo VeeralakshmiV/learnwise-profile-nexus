@@ -42,39 +42,56 @@ export const ContactForm = () => {
   };
 
   return (
-    <section id="contact" className="py-20 bg-muted/30">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-16">
-          <h2 className="text-4xl font-bold text-foreground mb-4">
-            Get in Touch
+    <section id="contact" className="py-20 relative overflow-hidden">
+      {/* Parallax Background */}
+      <div className="absolute inset-0 bg-gradient-to-br from-background via-muted/30 to-background">
+        <div className="absolute inset-0 bg-grid-white/[0.02] bg-grid-16 pointer-events-none" />
+        {/* Floating elements for parallax effect */}
+        <div className="absolute top-10 left-10 w-64 h-64 bg-primary/10 rounded-full blur-3xl animate-pulse" />
+        <div className="absolute bottom-10 right-10 w-80 h-80 bg-secondary/10 rounded-full blur-3xl animate-pulse delay-1000" />
+        <div className="absolute top-1/2 left-1/3 w-72 h-72 bg-accent/10 rounded-full blur-3xl animate-pulse delay-500" />
+      </div>
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+        <div className="text-center mb-20">
+          <div className="inline-block mb-6">
+            <span className="bg-gradient-to-r from-primary/20 to-secondary/20 backdrop-blur-sm border border-primary/20 rounded-full px-6 py-2 text-sm font-medium text-foreground">
+              Contact Us
+            </span>
+          </div>
+          <h2 className="text-5xl md:text-6xl font-bold text-foreground mb-6 tracking-tight">
+            Get in <span className="bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">Touch</span>
           </h2>
-          <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-            Ready to start your learning journey? Contact us today and let's discuss how we can help you achieve your goals
+          <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
+            Ready to start your learning journey? Contact us today and let's discuss how we can help you achieve your goals and transform your career
           </p>
         </div>
 
-        <div className="grid lg:grid-cols-2 gap-12">
+        <div className="grid lg:grid-cols-2 gap-16">
           {/* Contact Form */}
-          <Card className="bg-card border-border">
-            <CardHeader>
-              <CardTitle className="text-2xl text-card-foreground">Send us a Message</CardTitle>
+          <Card className="relative backdrop-blur-xl bg-card/60 border border-border/50 shadow-2xl shadow-primary/5 hover:shadow-primary/10 transition-all duration-500">
+            <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-white/5 rounded-lg" />
+            <CardHeader className="relative">
+              <CardTitle className="text-3xl text-card-foreground font-bold mb-2">Send us a Message</CardTitle>
+              <p className="text-muted-foreground">We'll get back to you within 24 hours</p>
             </CardHeader>
-            <CardContent>
-              <form onSubmit={handleSubmit} className="space-y-6">
-                <div className="grid md:grid-cols-2 gap-4">
-                  <div className="space-y-2">
-                    <Label htmlFor="name" className="text-card-foreground">Full Name *</Label>
+            <CardContent className="relative">
+              <form onSubmit={handleSubmit} className="space-y-8">
+                <div className="grid md:grid-cols-2 gap-6">
+                  <div className="space-y-3">
+                    <Label htmlFor="name" className="text-card-foreground font-medium">Full Name *</Label>
                     <Input
                       id="name"
                       name="name"
                       value={formData.name}
                       onChange={handleInputChange}
                       required
-                      className="border-input bg-background"
+                      className="bg-background/50 backdrop-blur-sm border border-border/50 focus:border-primary/50 focus:bg-background/80 transition-all h-12"
+                      placeholder="John Doe"
                     />
                   </div>
-                  <div className="space-y-2">
-                    <Label htmlFor="email" className="text-card-foreground">Email Address *</Label>
+                  <div className="space-y-3">
+                    <Label htmlFor="email" className="text-card-foreground font-medium">Email Address *</Label>
                     <Input
                       id="email"
                       name="email"
@@ -82,53 +99,56 @@ export const ContactForm = () => {
                       value={formData.email}
                       onChange={handleInputChange}
                       required
-                      className="border-input bg-background"
+                      className="bg-background/50 backdrop-blur-sm border border-border/50 focus:border-primary/50 focus:bg-background/80 transition-all h-12"
+                      placeholder="john@example.com"
                     />
                   </div>
                 </div>
 
-                <div className="grid md:grid-cols-2 gap-4">
-                  <div className="space-y-2">
-                    <Label htmlFor="phone" className="text-card-foreground">Phone Number</Label>
+                <div className="grid md:grid-cols-2 gap-6">
+                  <div className="space-y-3">
+                    <Label htmlFor="phone" className="text-card-foreground font-medium">Phone Number</Label>
                     <Input
                       id="phone"
                       name="phone"
                       value={formData.phone}
                       onChange={handleInputChange}
-                      className="border-input bg-background"
+                      className="bg-background/50 backdrop-blur-sm border border-border/50 focus:border-primary/50 focus:bg-background/80 transition-all h-12"
+                      placeholder="+1 (555) 123-4567"
                     />
                   </div>
-                  <div className="space-y-2">
-                    <Label htmlFor="course" className="text-card-foreground">Course of Interest</Label>
+                  <div className="space-y-3">
+                    <Label htmlFor="course" className="text-card-foreground font-medium">Course of Interest</Label>
                     <Input
                       id="course"
                       name="course"
                       value={formData.course}
                       onChange={handleInputChange}
                       placeholder="e.g., Full Stack Development"
-                      className="border-input bg-background"
+                      className="bg-background/50 backdrop-blur-sm border border-border/50 focus:border-primary/50 focus:bg-background/80 transition-all h-12"
                     />
                   </div>
                 </div>
 
-                <div className="space-y-2">
-                  <Label htmlFor="message" className="text-card-foreground">Message *</Label>
+                <div className="space-y-3">
+                  <Label htmlFor="message" className="text-card-foreground font-medium">Message *</Label>
                   <Textarea
                     id="message"
                     name="message"
                     value={formData.message}
                     onChange={handleInputChange}
                     required
-                    rows={4}
-                    className="border-input bg-background"
+                    rows={6}
+                    className="bg-background/50 backdrop-blur-sm border border-border/50 focus:border-primary/50 focus:bg-background/80 transition-all resize-none"
                     placeholder="Tell us about your learning goals and any questions you have..."
                   />
                 </div>
 
                 <Button 
                   type="submit" 
-                  className="w-full bg-primary hover:bg-primary/90 text-primary-foreground py-3"
+                  className="w-full bg-gradient-to-r from-primary to-secondary hover:from-primary/90 hover:to-secondary/90 text-primary-foreground py-4 text-lg font-semibold shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105"
                 >
+                  <Mail className="h-5 w-5 mr-2" />
                   Send Message
                 </Button>
               </form>
@@ -137,75 +157,55 @@ export const ContactForm = () => {
 
           {/* Contact Information */}
           <div className="space-y-8">
-            <Card className="bg-card border-border">
-              <CardContent className="p-6">
-                <div className="flex items-start gap-4">
-                  <div className="bg-primary/10 p-3 rounded-lg">
-                    <MapPin className="h-6 w-6 text-primary" />
+            {[
+              {
+                icon: MapPin,
+                title: "Visit Our Campus",
+                content: ["123 Innovation Street", "Tech District, Silicon Valley", "CA 94105, United States"],
+                gradient: "from-primary/20 to-primary/10"
+              },
+              {
+                icon: Phone,
+                title: "Call Us",
+                content: ["+1 (555) 123-4567", "+1 (555) 987-6543"],
+                gradient: "from-secondary/20 to-secondary/10"
+              },
+              {
+                icon: Mail,
+                title: "Email Us",
+                content: ["info@alphafly.com", "admissions@alphafly.com"],
+                gradient: "from-accent/20 to-accent/10"
+              },
+              {
+                icon: Clock,
+                title: "Office Hours",
+                content: ["Monday - Friday: 9:00 AM - 6:00 PM", "Saturday: 10:00 AM - 4:00 PM", "Sunday: Closed"],
+                gradient: "from-primary/20 to-secondary/10"
+              }
+            ].map((item, index) => (
+              <Card key={index} className="group relative backdrop-blur-xl bg-card/60 border border-border/50 shadow-lg hover:shadow-2xl hover:shadow-primary/10 transition-all duration-500 hover:scale-105">
+                <div className={`absolute inset-0 bg-gradient-to-br ${item.gradient} rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-500`} />
+                <CardContent className="p-8 relative">
+                  <div className="flex items-start gap-6">
+                    <div className="bg-gradient-to-br from-primary/20 to-secondary/20 backdrop-blur-sm p-4 rounded-2xl shadow-lg group-hover:shadow-xl transition-all duration-500 group-hover:scale-110">
+                      <item.icon className="h-8 w-8 text-primary group-hover:text-secondary transition-colors" />
+                    </div>
+                    <div className="flex-1">
+                      <h3 className="font-bold text-card-foreground mb-3 text-xl group-hover:text-primary transition-colors">
+                        {item.title}
+                      </h3>
+                      <div className="space-y-1">
+                        {item.content.map((line, lineIndex) => (
+                          <p key={lineIndex} className="text-muted-foreground group-hover:text-foreground transition-colors">
+                            {line}
+                          </p>
+                        ))}
+                      </div>
+                    </div>
                   </div>
-                  <div>
-                    <h3 className="font-semibold text-card-foreground mb-2">Visit Our Campus</h3>
-                    <p className="text-muted-foreground">
-                      123 Innovation Street<br />
-                      Tech District, Silicon Valley<br />
-                      CA 94105, United States
-                    </p>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-
-            <Card className="bg-card border-border">
-              <CardContent className="p-6">
-                <div className="flex items-start gap-4">
-                  <div className="bg-primary/10 p-3 rounded-lg">
-                    <Phone className="h-6 w-6 text-primary" />
-                  </div>
-                  <div>
-                    <h3 className="font-semibold text-card-foreground mb-2">Call Us</h3>
-                    <p className="text-muted-foreground">
-                      +1 (555) 123-4567<br />
-                      +1 (555) 987-6543
-                    </p>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-
-            <Card className="bg-card border-border">
-              <CardContent className="p-6">
-                <div className="flex items-start gap-4">
-                  <div className="bg-primary/10 p-3 rounded-lg">
-                    <Mail className="h-6 w-6 text-primary" />
-                  </div>
-                  <div>
-                    <h3 className="font-semibold text-card-foreground mb-2">Email Us</h3>
-                    <p className="text-muted-foreground">
-                      info@alphafly.com<br />
-                      admissions@alphafly.com
-                    </p>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-
-            <Card className="bg-card border-border">
-              <CardContent className="p-6">
-                <div className="flex items-start gap-4">
-                  <div className="bg-primary/10 p-3 rounded-lg">
-                    <Clock className="h-6 w-6 text-primary" />
-                  </div>
-                  <div>
-                    <h3 className="font-semibold text-card-foreground mb-2">Office Hours</h3>
-                    <p className="text-muted-foreground">
-                      Monday - Friday: 9:00 AM - 6:00 PM<br />
-                      Saturday: 10:00 AM - 4:00 PM<br />
-                      Sunday: Closed
-                    </p>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
+                </CardContent>
+              </Card>
+            ))}
           </div>
         </div>
       </div>

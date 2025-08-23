@@ -168,26 +168,31 @@ const Home = () => {
       </header>
       {/* Hero Section with Special Offers */}
       <section className="relative text-white py-20 overflow-hidden" style={{ background: 'linear-gradient(135deg, #0082fb 0%, #0064e0 100%)' }}>
+        {/* Parallax Background Elements */}
         <div className="absolute inset-0 opacity-10">
           <div
-            className="w-full h-full bg-repeat"
+            className="w-full h-full bg-repeat transform translate-y-0 transition-transform duration-1000"
             style={{
               backgroundImage:
                 "url(\"data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Ccircle cx='30' cy='30' r='1'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E\")",
             }}
           ></div>
         </div>
+        
+        {/* Floating Elements for Parallax */}
+        <div className="absolute top-20 left-10 w-96 h-96 bg-white/5 rounded-full blur-3xl animate-pulse transform -translate-y-10"></div>
+        <div className="absolute bottom-20 right-10 w-80 h-80 bg-white/5 rounded-full blur-3xl animate-pulse delay-1000 transform translate-y-10"></div>
+        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-72 h-72 bg-white/5 rounded-full blur-3xl animate-pulse delay-500"></div>
 
         <div className="container mx-auto px-6 relative">
           {/* Special Offers Marquee */}
-          <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-4 shadow-2xl border border-white/20 mb-12">
-          
-            <div className="flex flex-col lg:flex-row items-center justify-center gap-4">
-              <Badge className="bg-accent text-accent-foreground w-fit">
+          <div className="bg-white/10 backdrop-blur-xl rounded-3xl p-6 shadow-2xl border border-white/20 mb-12 transform hover:scale-105 transition-all duration-500">
+            <div className="flex flex-col lg:flex-row items-center justify-center gap-6">
+              <Badge className="bg-gradient-to-r from-accent/80 to-secondary/80 text-white border-white/20 px-4 py-2">
                 🚀 Join 50,000+ Successful Students
               </Badge>
               {/* Title */}
-              <h2 className="text-2xl md:text-3xl font-bold text-white text-center">
+              <h2 className="text-3xl md:text-4xl font-bold text-white text-center bg-gradient-to-r from-white to-blue-100 bg-clip-text text-transparent">
                 🎉 Special Offers 🎉
               </h2>
               {/* Marquee */}
@@ -196,7 +201,7 @@ const Home = () => {
                   {[...offers, ...offers].map((offer, index) => (
                     <span
                       key={index}
-                      className={`inline-block bg-gradient-to-r ${offer.color} text-white px-4 py-2 mx-3 rounded-full font-bold text-sm md:text-base`}
+                      className={`inline-block bg-gradient-to-r ${offer.color} text-white px-6 py-3 mx-4 rounded-full font-bold text-sm md:text-base shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-110`}
                     >
                       {offer.text}
                     </span>
@@ -204,20 +209,20 @@ const Home = () => {
                 </div>
               </span>
             </div>
-            <div className="grid grid-cols-3 gap-8 pt-8">
-                <div className="text-center">
-                  <div className="text-3xl font-bold text-accent">50K+</div>
-                  <div className="text-blue-200 text-sm">Students</div>
-                </div>
-                <div className="text-center">
-                  <div className="text-3xl font-bold text-accent">95%</div>
-                  <div className="text-blue-200 text-sm">Success Rate</div>
-                </div>
-                <div className="text-center">
-                  <div className="text-3xl font-bold text-accent">4.9★</div>
-                  <div className="text-blue-200 text-sm">Rating</div>
-                </div>
+            <div className="grid grid-cols-3 gap-8 pt-10">
+              <div className="text-center group">
+                <div className="text-4xl font-bold text-white mb-2 group-hover:scale-110 transition-transform">50K+</div>
+                <div className="text-blue-200 text-base font-medium">Students</div>
               </div>
+              <div className="text-center group">
+                <div className="text-4xl font-bold text-white mb-2 group-hover:scale-110 transition-transform">95%</div>
+                <div className="text-blue-200 text-base font-medium">Success Rate</div>
+              </div>
+              <div className="text-center group">
+                <div className="text-4xl font-bold text-white mb-2 group-hover:scale-110 transition-transform">4.9★</div>
+                <div className="text-blue-200 text-base font-medium">Rating</div>
+              </div>
+            </div>
           </div>
         </div>
               {/* Hero Section */}
