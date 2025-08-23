@@ -8,6 +8,7 @@ import { useAuth } from "@/components/auth/AuthProvider";
 import { CountdownTimer } from "@/components/home/CountdownTimer";
 import { CourseCarousel } from "@/components/home/CourseCarousel";
 import { ContactForm } from "@/components/home/ContactForm";
+import TestimonialsSection from "@/components/TestimonialsSection";
 
 const Home = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -262,26 +263,31 @@ const Home = () => {
 
 
       {/* Why Choose Alpha Fly */}
-      <section id="why-choose" className="py-20 bg-background">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-foreground mb-4">
-              Why Choose Alpha Fly?
+      <section id="why-choose" className="py-20 bg-gradient-to-br from-background to-muted/20 relative overflow-hidden">
+        <div className="absolute inset-0 bg-grid-white/[0.02] bg-grid-16 pointer-events-none" />
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+          <div className="text-center mb-20">
+            <Badge className="mb-6 bg-primary/10 text-primary border-primary/20">
+              Why Choose Us
+            </Badge>
+            <h2 className="text-5xl md:text-6xl font-bold text-foreground mb-6 tracking-tight">
+              Why Choose <span className="bg-gradient-to-r from-primary to-primary/60 bg-clip-text text-transparent">Alpha Fly</span>?
             </h2>
-            <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
+            <p className="text-xl text-muted-foreground max-w-4xl mx-auto leading-relaxed">
               We're not just another online learning platform. We're your partner in career transformation 
-              with proven results and industry recognition.
+              with proven results and industry recognition that speaks for itself.
             </p>
           </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-20">
             {features.map((feature, index) => (
-              <Card key={index} className="group hover:shadow-lg transition-all duration-300 border-border bg-card">
-                <CardContent className="p-8 text-center">
-                  <div className="bg-primary/10 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:bg-primary/20 transition-colors">
-                    <feature.icon className="h-8 w-8 text-primary" />
+              <Card key={index} className="group relative overflow-hidden border-0 bg-card/50 backdrop-blur-sm hover:bg-card/80 transition-all duration-500 hover:scale-105 hover:shadow-2xl hover:shadow-primary/10">
+                <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                <CardContent className="p-8 text-center relative">
+                  <div className="bg-gradient-to-br from-primary to-primary/60 w-20 h-20 rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-lg shadow-primary/25 group-hover:shadow-xl group-hover:shadow-primary/40 transition-all duration-500">
+                    <feature.icon className="h-10 w-10 text-primary-foreground" />
                   </div>
-                  <h3 className="text-xl font-semibold text-card-foreground mb-4">
+                  <h3 className="text-xl font-bold text-card-foreground mb-4 group-hover:text-primary transition-colors">
                     {feature.title}
                   </h3>
                   <p className="text-muted-foreground leading-relaxed">
@@ -293,23 +299,24 @@ const Home = () => {
           </div>
 
           {/* Success Metrics */}
-          <div className="mt-20 bg-muted/30 rounded-2xl p-12">
+          <div className="bg-gradient-to-r from-primary/10 via-primary/5 to-primary/10 rounded-3xl p-12 border border-primary/20 shadow-2xl">
+            <h3 className="text-3xl font-bold text-center text-foreground mb-12">Our Track Record</h3>
             <div className="grid md:grid-cols-4 gap-8 text-center">
-              <div>
-                <div className="text-4xl font-bold text-primary mb-2">98%</div>
-                <div className="text-muted-foreground">Course Completion Rate</div>
+              <div className="group">
+                <div className="text-5xl font-bold bg-gradient-to-r from-primary to-primary/60 bg-clip-text text-transparent mb-3 group-hover:scale-110 transition-transform">98%</div>
+                <div className="text-muted-foreground font-medium">Course Completion Rate</div>
               </div>
-              <div>
-                <div className="text-4xl font-bold text-primary mb-2">$75K</div>
-                <div className="text-muted-foreground">Average Salary Increase</div>
+              <div className="group">
+                <div className="text-5xl font-bold bg-gradient-to-r from-primary to-primary/60 bg-clip-text text-transparent mb-3 group-hover:scale-110 transition-transform">$75K</div>
+                <div className="text-muted-foreground font-medium">Average Salary Increase</div>
               </div>
-              <div>
-                <div className="text-4xl font-bold text-primary mb-2">3 Months</div>
-                <div className="text-muted-foreground">Average Job Placement</div>
+              <div className="group">
+                <div className="text-5xl font-bold bg-gradient-to-r from-primary to-primary/60 bg-clip-text text-transparent mb-3 group-hover:scale-110 transition-transform">3 Months</div>
+                <div className="text-muted-foreground font-medium">Average Job Placement</div>
               </div>
-              <div>
-                <div className="text-4xl font-bold text-primary mb-2">24/7</div>
-                <div className="text-muted-foreground">Mentor Support</div>
+              <div className="group">
+                <div className="text-5xl font-bold bg-gradient-to-r from-primary to-primary/60 bg-clip-text text-transparent mb-3 group-hover:scale-110 transition-transform">24/7</div>
+                <div className="text-muted-foreground font-medium">Mentor Support</div>
               </div>
             </div>
           </div>
@@ -317,65 +324,133 @@ const Home = () => {
       </section>
 
       {/* Course Carousel */}
-      <div id="courses">
-        <CourseCarousel />
-      </div>
+      <section className="bg-muted/30 relative overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent" />
+        <div id="courses">
+          <CourseCarousel />
+        </div>
+      </section>
+
+      {/* Testimonials */}
+      <TestimonialsSection />
 
       {/* Contact Form */}
-      <ContactForm />
+      <section className="bg-gradient-to-br from-background to-muted/20 relative">
+        <div className="absolute inset-0 bg-grid-white/[0.02] bg-grid-16 pointer-events-none" />
+        <ContactForm />
+      </section>
 
       {/* Footer */}
-      <footer className="bg-card border-t border-border py-16">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+      <footer className="bg-gradient-to-br from-card to-muted/50 border-t border-border/50 py-20 relative overflow-hidden">
+        <div className="absolute inset-0 bg-grid-white/[0.02] bg-grid-16 pointer-events-none" />
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
             {/* Company Info */}
-            <div className="space-y-4">
-              <div className="flex items-center space-x-2">
-                <div className="bg-primary rounded text-primary-foreground px-3 py-1 font-bold text-xl">
+            <div className="space-y-6 md:col-span-2">
+              <div className="flex items-center space-x-3">
+                <div className="bg-gradient-to-br from-primary to-primary/60 rounded-xl text-primary-foreground px-4 py-2 font-bold text-2xl shadow-lg">
                   AF
                 </div>
-                <span className="text-xl font-semibold text-foreground">Alpha Fly</span>
+                <span className="text-2xl font-bold text-foreground">Alpha Fly</span>
               </div>
-              <p className="text-muted-foreground leading-relaxed">
-                Transforming careers through quality education and practical skills development since 2013.
+              <p className="text-muted-foreground leading-relaxed text-lg max-w-md">
+                Transforming careers through quality education and practical skills development since 2013. 
+                Join thousands of successful graduates who've changed their lives with us.
               </p>
+              <div className="flex space-x-4">
+                <Button variant="outline" size="icon" className="rounded-full hover:bg-primary hover:text-primary-foreground">
+                  <Users className="h-4 w-4" />
+                </Button>
+                <Button variant="outline" size="icon" className="rounded-full hover:bg-primary hover:text-primary-foreground">
+                  <Star className="h-4 w-4" />
+                </Button>
+                <Button variant="outline" size="icon" className="rounded-full hover:bg-primary hover:text-primary-foreground">
+                  <TrendingUp className="h-4 w-4" />
+                </Button>
+              </div>
             </div>
 
             {/* Courses */}
             <div>
-              <h4 className="font-semibold text-foreground mb-4">Courses</h4>
-              <ul className="space-y-2 text-muted-foreground">
-                <li><a href="#" className="hover:text-foreground transition-colors">Full Stack Development</a></li>
-                <li><a href="#" className="hover:text-foreground transition-colors">Data Science & AI</a></li>
-                <li><a href="#" className="hover:text-foreground transition-colors">Cloud Computing</a></li>
-                <li><a href="#" className="hover:text-foreground transition-colors">Mobile Development</a></li>
+              <h4 className="font-bold text-foreground mb-6 text-lg">Popular Courses</h4>
+              <ul className="space-y-3 text-muted-foreground">
+                <li><a href="#" className="hover:text-primary transition-colors flex items-center group">
+                  <ChevronRight className="h-4 w-4 mr-2 group-hover:translate-x-1 transition-transform" />
+                  Full Stack Development
+                </a></li>
+                <li><a href="#" className="hover:text-primary transition-colors flex items-center group">
+                  <ChevronRight className="h-4 w-4 mr-2 group-hover:translate-x-1 transition-transform" />
+                  Data Science & AI
+                </a></li>
+                <li><a href="#" className="hover:text-primary transition-colors flex items-center group">
+                  <ChevronRight className="h-4 w-4 mr-2 group-hover:translate-x-1 transition-transform" />
+                  Cloud Computing
+                </a></li>
+                <li><a href="#" className="hover:text-primary transition-colors flex items-center group">
+                  <ChevronRight className="h-4 w-4 mr-2 group-hover:translate-x-1 transition-transform" />
+                  Mobile Development
+                </a></li>
               </ul>
             </div>
 
-            {/* Support */}
+            {/* Quick Links */}
             <div>
-              <h4 className="font-semibold text-foreground mb-4">Support</h4>
-              <ul className="space-y-2 text-muted-foreground">
-                <li><a href="#" className="hover:text-foreground transition-colors">Help Center</a></li>
-                <li><a href="#" className="hover:text-foreground transition-colors">Career Support</a></li>
-                <li><a href="#" className="hover:text-foreground transition-colors">Success Stories</a></li>
-                <li><a href="#" className="hover:text-foreground transition-colors">Community</a></li>
-              </ul>
-            </div>
-
-            {/* Contact */}
-            <div>
-              <h4 className="font-semibold text-foreground mb-4">Contact</h4>
-              <ul className="space-y-2 text-muted-foreground">
-                <li>info@alphafly.com</li>
-                <li>+1 (555) 123-4567</li>
-                <li>Follow us on social media</li>
+              <h4 className="font-bold text-foreground mb-6 text-lg">Quick Links</h4>
+              <ul className="space-y-3 text-muted-foreground">
+                <li><a href="#" className="hover:text-primary transition-colors flex items-center group">
+                  <ChevronRight className="h-4 w-4 mr-2 group-hover:translate-x-1 transition-transform" />
+                  Help Center
+                </a></li>
+                <li><a href="#" className="hover:text-primary transition-colors flex items-center group">
+                  <ChevronRight className="h-4 w-4 mr-2 group-hover:translate-x-1 transition-transform" />
+                  Career Support
+                </a></li>
+                <li><a href="#" className="hover:text-primary transition-colors flex items-center group">
+                  <ChevronRight className="h-4 w-4 mr-2 group-hover:translate-x-1 transition-transform" />
+                  Success Stories
+                </a></li>
+                <li><a href="#" className="hover:text-primary transition-colors flex items-center group">
+                  <ChevronRight className="h-4 w-4 mr-2 group-hover:translate-x-1 transition-transform" />
+                  Community
+                </a></li>
               </ul>
             </div>
           </div>
 
-          <div className="border-t border-border mt-12 pt-8 text-center text-muted-foreground">
-            <p>&copy; 2024 Alpha Fly. All rights reserved.</p>
+          {/* Contact Info */}
+          <div className="bg-primary/5 rounded-2xl p-8 mb-12 border border-primary/10">
+            <div className="grid md:grid-cols-3 gap-6 text-center">
+              <div className="flex flex-col items-center space-y-2">
+                <div className="bg-primary/10 p-3 rounded-full">
+                  <Target className="h-6 w-6 text-primary" />
+                </div>
+                <div className="font-semibold text-foreground">Email Us</div>
+                <div className="text-muted-foreground">info@alphafly.com</div>
+              </div>
+              <div className="flex flex-col items-center space-y-2">
+                <div className="bg-primary/10 p-3 rounded-full">
+                  <Users className="h-6 w-6 text-primary" />
+                </div>
+                <div className="font-semibold text-foreground">Call Us</div>
+                <div className="text-muted-foreground">+1 (555) 123-4567</div>
+              </div>
+              <div className="flex flex-col items-center space-y-2">
+                <div className="bg-primary/10 p-3 rounded-full">
+                  <Star className="h-6 w-6 text-primary" />
+                </div>
+                <div className="font-semibold text-foreground">Follow Us</div>
+                <div className="text-muted-foreground">Social Media</div>
+              </div>
+            </div>
+          </div>
+
+          <div className="border-t border-border/50 pt-8 flex flex-col md:flex-row justify-between items-center">
+            <p className="text-muted-foreground">&copy; 2024 Alpha Fly. All rights reserved.</p>
+            <div className="flex space-x-6 mt-4 md:mt-0">
+              <a href="#" className="text-muted-foreground hover:text-primary transition-colors">Privacy Policy</a>
+              <a href="#" className="text-muted-foreground hover:text-primary transition-colors">Terms of Service</a>
+              <a href="#" className="text-muted-foreground hover:text-primary transition-colors">Cookie Policy</a>
+            </div>
           </div>
         </div>
       </footer>
