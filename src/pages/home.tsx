@@ -166,8 +166,8 @@ const Home = () => {
           )}
         </div>
       </header>
-      {/* Hero Section with Special Offers */}
-      <section className="relative text-white py-20 overflow-hidden" style={{ background: 'linear-gradient(135deg, #0082fb 0%, #0064e0 100%)' }}>
+      {/* Hero Section with Animated Carousel */}
+      <section className="relative text-white py-20 overflow-hidden bg-gradient-to-br from-primary via-blue-600 to-secondary">
         {/* Parallax Background Elements */}
         <div className="absolute inset-0 opacity-10">
           <div
@@ -185,84 +185,156 @@ const Home = () => {
         <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-72 h-72 bg-white/5 rounded-full blur-3xl animate-pulse delay-500"></div>
 
         <div className="container mx-auto px-6 relative">
-          {/* Special Offers Marquee */}
-          <div className="bg-white/10 backdrop-blur-xl rounded-3xl p-6 shadow-2xl border border-white/20 mb-12 transform hover:scale-105 transition-all duration-500">
-            <div className="flex flex-col lg:flex-row items-center justify-center gap-6">
-              <Badge className="bg-gradient-to-r from-accent/80 to-secondary/80 text-white border-white/20 px-4 py-2">
-                🚀 Join 50,000+ Successful Students
-              </Badge>
-              {/* Title */}
-              <h2 className="text-3xl md:text-4xl font-bold text-white text-center bg-gradient-to-r from-white to-blue-100 bg-clip-text text-transparent">
-                🎉 Special Offers 🎉
-              </h2>
-              {/* Marquee */}
-              <span className="overflow-hidden whitespace-nowrap w-full lg:w-auto flex-1">
-                <div className="flex animate-marquee-left">
-                  {[...offers, ...offers].map((offer, index) => (
-                    <span
-                      key={index}
-                      className={`inline-block bg-gradient-to-r ${offer.color} text-white px-6 py-3 mx-4 rounded-full font-bold text-sm md:text-base shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-110`}
-                    >
-                      {offer.text}
-                    </span>
-                  ))}
-                </div>
-              </span>
+          {/* Special Badge */}
+          <div className="text-center mb-8">
+            <Badge className="bg-gradient-to-r from-accent/80 to-secondary/80 text-white border-white/20 px-6 py-2 text-sm">
+              Join over 100,000 happy creators
+            </Badge>
+          </div>
+
+          {/* Hero Content */}
+          <div className="text-center mb-16">
+            <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold mb-6 bg-gradient-to-r from-white via-blue-100 to-blue-200 bg-clip-text text-transparent leading-tight">
+              Engage Audiences with<br />
+              <span className="text-yellow-300">Stunning Videos</span>
+            </h1>
+            <p className="text-xl md:text-2xl text-blue-100 mb-8 max-w-3xl mx-auto">
+              Boost Your Brand with High-Impact Short Videos from our expert content creators. Our team is ready to propel your business forward
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <Button size="lg" className="bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600 text-white text-lg px-8 py-3 rounded-full shadow-xl hover:shadow-2xl transform hover:scale-105 transition-all duration-300">
+                Get Started
+              </Button>
             </div>
-            <div className="grid grid-cols-3 gap-8 pt-10">
-              <div className="text-center group">
-                <div className="text-4xl font-bold text-white mb-2 group-hover:scale-110 transition-transform">50K+</div>
-                <div className="text-blue-200 text-base font-medium">Students</div>
-              </div>
-              <div className="text-center group">
-                <div className="text-4xl font-bold text-white mb-2 group-hover:scale-110 transition-transform">95%</div>
-                <div className="text-blue-200 text-base font-medium">Success Rate</div>
-              </div>
-              <div className="text-center group">
-                <div className="text-4xl font-bold text-white mb-2 group-hover:scale-110 transition-transform">4.9★</div>
-                <div className="text-blue-200 text-base font-medium">Rating</div>
-              </div>
+          </div>
+
+          {/* Animated Carousel */}
+          <div className="relative">
+            {/* First Row - Left to Right */}
+            <div className="flex animate-carousel-left mb-4 gap-4">
+              {[...Array(2)].map((_, setIndex) => (
+                <div key={setIndex} className="flex gap-4 min-w-full">
+                  <div className="relative overflow-hidden rounded-2xl shadow-2xl min-w-[200px] h-[280px] transform hover:scale-105 transition-all duration-300">
+                    <img
+                      src="/thumbnails/a1.jpg"
+                      alt="Creative Content 1"
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
+                  <div className="relative overflow-hidden rounded-2xl shadow-2xl min-w-[200px] h-[280px] transform hover:scale-105 transition-all duration-300">
+                    <img
+                      src="/thumbnails/a2.jpg"
+                      alt="Creative Content 2"
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
+                  <div className="relative overflow-hidden rounded-2xl shadow-2xl min-w-[200px] h-[280px] transform hover:scale-105 transition-all duration-300">
+                    <img
+                      src="/thumbnails/a3.jpg"
+                      alt="Creative Content 3"
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
+                  <div className="relative overflow-hidden rounded-2xl shadow-2xl min-w-[200px] h-[280px] transform hover:scale-105 transition-all duration-300">
+                    <img
+                      src="/thumbnails/a4.jpg"
+                      alt="Creative Content 4"
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
+                  <div className="relative overflow-hidden rounded-2xl shadow-2xl min-w-[200px] h-[280px] transform hover:scale-105 transition-all duration-300">
+                    <img
+                      src="/thumbnails/a5.jpg"
+                      alt="Creative Content 5"
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
+                  <div className="relative overflow-hidden rounded-2xl shadow-2xl min-w-[200px] h-[280px] transform hover:scale-105 transition-all duration-300">
+                    <img
+                      src="/thumbnails/a6.jpg"
+                      alt="Creative Content 6"
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            {/* Second Row - Right to Left */}
+            <div className="flex animate-carousel-right gap-4">
+              {[...Array(2)].map((_, setIndex) => (
+                <div key={setIndex} className="flex gap-4 min-w-full">
+                  <div className="relative overflow-hidden rounded-2xl shadow-2xl min-w-[200px] h-[280px] transform hover:scale-105 transition-all duration-300">
+                    <img
+                      src="/thumbnails/a7.png"
+                      alt="Creative Content 7"
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
+                  <div className="relative overflow-hidden rounded-2xl shadow-2xl min-w-[200px] h-[280px] transform hover:scale-105 transition-all duration-300">
+                    <img
+                      src="/thumbnails/a8.jpg"
+                      alt="Creative Content 8"
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
+                  <div className="relative overflow-hidden rounded-2xl shadow-2xl min-w-[200px] h-[280px] transform hover:scale-105 transition-all duration-300">
+                    <img
+                      src="/thumbnails/a9.jpg"
+                      alt="Creative Content 9"
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
+                  <div className="relative overflow-hidden rounded-2xl shadow-2xl min-w-[200px] h-[280px] transform hover:scale-105 transition-all duration-300">
+                    <img
+                      src="/thumbnails/a10.jpg"
+                      alt="Creative Content 10"
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
+                  <div className="relative overflow-hidden rounded-2xl shadow-2xl min-w-[200px] h-[280px] transform hover:scale-105 transition-all duration-300">
+                    <img
+                      src="/thumbnails/a11.jpg"
+                      alt="Creative Content 11"
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
+                  <div className="relative overflow-hidden rounded-2xl shadow-2xl min-w-[200px] h-[280px] transform hover:scale-105 transition-all duration-300">
+                    <img
+                      src="/thumbnails/a1.jpg"
+                      alt="Creative Content 1"
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            {/* Decorative Elements */}
+            <div className="absolute -bottom-4 left-1/4 text-white/60 text-sm transform -rotate-12">
+              It's Free
+            </div>
+            <div className="absolute -top-4 right-1/4 text-white/60 text-sm transform rotate-12">
+              Remote friendly
+            </div>
+          </div>
+
+          {/* Success Metrics */}
+          <div className="mt-16 grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div className="text-center">
+              <div className="text-4xl font-bold text-yellow-300">50,000+</div>
+              <div className="text-blue-100">Students Enrolled</div>
+            </div>
+            <div className="text-center">
+              <div className="text-4xl font-bold text-yellow-300">95%</div>
+              <div className="text-blue-100">Success Rate</div>
+            </div>
+            <div className="text-center">
+              <div className="text-4xl font-bold text-yellow-300">500+</div>
+              <div className="text-blue-100">Industry Partners</div>
             </div>
           </div>
         </div>
-              {/* Hero Section */}
-                  <div className="mt-20">
-            <div className="text-center mb-12">
-              <h3 className="text-2xl font-bold mb-4">Get a Taste of Our Learning Experience</h3>
-              <p className="text-blue-100">Watch these sample lessons from our most popular courses</p>
-            </div>
-
-            <div className="grid md:grid-cols-3 gap-8">
-              {videos.map((video) => (
-                <Card key={video.id} className="bg-white/10 backdrop-blur-sm border-white/20 overflow-hidden hover:bg-white/20 transition-all">
-                  <CardContent className="p-0">
-                    <div className="relative">
-                      <video
-                        className="w-full h-48 object-cover"
-                        controls
-                        preload="metadata"
-                        poster={video.thumbnail}
-                      >
-                        <source src={video.src} type="video/mp4" />
-                        Your browser does not support the video tag.
-                      </video>
-                      <div className="absolute inset-0 bg-black/20 hover:bg-black/10 transition-colors flex items-center justify-center">
-                        <Play className="h-12 w-12 text-white opacity-80 hover:opacity-100 transition-opacity" />
-                      </div>
-                    </div>
-                    <div className="p-6">
-                      <h4 className="text-lg font-semibold text-white mb-2">
-                        {video.title}
-                      </h4>
-                      <p className="text-blue-100 text-sm">
-                        Experience our hands-on approach to learning with real-world projects.
-                      </p>
-                    </div>
-                  </CardContent>
-                </Card>
-              ))}
-            </div>
-          </div>
       </section>
 
 
