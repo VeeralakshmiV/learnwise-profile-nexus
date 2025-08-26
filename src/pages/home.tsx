@@ -9,6 +9,7 @@ import { CountdownTimer } from "@/components/home/CountdownTimer";
 import { CourseCarousel } from "@/components/home/CourseCarousel";
 import { ContactForm } from "@/components/home/ContactForm";
 import TestimonialsSection from "@/components/TestimonialsSection";
+import Carousel3D from "@/components/home/Carousel3D";
 
 const Home = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -208,116 +209,8 @@ const Home = () => {
             </div>
           </div>
 
-          {/* Animated Carousel */}
-          <div className="relative">
-            {/* First Row - Left to Right */}
-            <div className="flex animate-carousel-left mb-4 gap-4">
-              {[...Array(2)].map((_, setIndex) => (
-                <div key={setIndex} className="flex gap-4 min-w-full">
-                  <div className="relative overflow-hidden rounded-2xl shadow-2xl min-w-[200px] h-[280px] transform hover:scale-105 transition-all duration-300">
-                    <img
-                      src="/thumbnails/a1.jpg"
-                      alt="Creative Content 1"
-                      className="w-full h-full object-cover"
-                    />
-                  </div>
-                  <div className="relative overflow-hidden rounded-2xl shadow-2xl min-w-[200px] h-[280px] transform hover:scale-105 transition-all duration-300">
-                    <img
-                      src="/thumbnails/a2.jpg"
-                      alt="Creative Content 2"
-                      className="w-full h-full object-cover"
-                    />
-                  </div>
-                  <div className="relative overflow-hidden rounded-2xl shadow-2xl min-w-[200px] h-[280px] transform hover:scale-105 transition-all duration-300">
-                    <img
-                      src="/thumbnails/a3.jpg"
-                      alt="Creative Content 3"
-                      className="w-full h-full object-cover"
-                    />
-                  </div>
-                  <div className="relative overflow-hidden rounded-2xl shadow-2xl min-w-[200px] h-[280px] transform hover:scale-105 transition-all duration-300">
-                    <img
-                      src="/thumbnails/a4.jpg"
-                      alt="Creative Content 4"
-                      className="w-full h-full object-cover"
-                    />
-                  </div>
-                  <div className="relative overflow-hidden rounded-2xl shadow-2xl min-w-[200px] h-[280px] transform hover:scale-105 transition-all duration-300">
-                    <img
-                      src="/thumbnails/a5.jpg"
-                      alt="Creative Content 5"
-                      className="w-full h-full object-cover"
-                    />
-                  </div>
-                  <div className="relative overflow-hidden rounded-2xl shadow-2xl min-w-[200px] h-[280px] transform hover:scale-105 transition-all duration-300">
-                    <img
-                      src="/thumbnails/a6.jpg"
-                      alt="Creative Content 6"
-                      className="w-full h-full object-cover"
-                    />
-                  </div>
-                </div>
-              ))}
-            </div>
-
-            {/* Second Row - Right to Left */}
-            <div className="flex animate-carousel-right gap-4">
-              {[...Array(2)].map((_, setIndex) => (
-                <div key={setIndex} className="flex gap-4 min-w-full">
-                  <div className="relative overflow-hidden rounded-2xl shadow-2xl min-w-[200px] h-[280px] transform hover:scale-105 transition-all duration-300">
-                    <img
-                      src="/thumbnails/a7.png"
-                      alt="Creative Content 7"
-                      className="w-full h-full object-cover"
-                    />
-                  </div>
-                  <div className="relative overflow-hidden rounded-2xl shadow-2xl min-w-[200px] h-[280px] transform hover:scale-105 transition-all duration-300">
-                    <img
-                      src="/thumbnails/a8.jpg"
-                      alt="Creative Content 8"
-                      className="w-full h-full object-cover"
-                    />
-                  </div>
-                  <div className="relative overflow-hidden rounded-2xl shadow-2xl min-w-[200px] h-[280px] transform hover:scale-105 transition-all duration-300">
-                    <img
-                      src="/thumbnails/a9.jpg"
-                      alt="Creative Content 9"
-                      className="w-full h-full object-cover"
-                    />
-                  </div>
-                  <div className="relative overflow-hidden rounded-2xl shadow-2xl min-w-[200px] h-[280px] transform hover:scale-105 transition-all duration-300">
-                    <img
-                      src="/thumbnails/a10.jpg"
-                      alt="Creative Content 10"
-                      className="w-full h-full object-cover"
-                    />
-                  </div>
-                  <div className="relative overflow-hidden rounded-2xl shadow-2xl min-w-[200px] h-[280px] transform hover:scale-105 transition-all duration-300">
-                    <img
-                      src="/thumbnails/a11.jpg"
-                      alt="Creative Content 11"
-                      className="w-full h-full object-cover"
-                    />
-                  </div>
-                  <div className="relative overflow-hidden rounded-2xl shadow-2xl min-w-[200px] h-[280px] transform hover:scale-105 transition-all duration-300">
-                    <img
-                      src="/thumbnails/a1.jpg"
-                      alt="Creative Content 1"
-                      className="w-full h-full object-cover"
-                    />
-                  </div>
-                </div>
-              ))}
-            </div>
-
-            {/* Decorative Elements */}
-            <div className="absolute -bottom-4 left-1/4 text-white/60 text-sm transform -rotate-12">
-              It's Free
-            </div>
-            <div className="absolute -top-4 right-1/4 text-white/60 text-sm transform rotate-12">
-              Remote friendly
-            </div>
-          </div>
+          {/* 3D Animated Carousel */}
+          <Carousel3D />
 
           {/* Success Metrics */}
           <div className="mt-16 grid grid-cols-1 md:grid-cols-3 gap-8">
