@@ -1,76 +1,56 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Star, Clock, Users, ChevronLeft, ChevronRight } from 'lucide-react';
-import { useState } from 'react';
+import { supabase } from '@/integrations/supabase/client';
+import { CoursePreview } from '@/components/courses/CoursePreview';
+import { useToast } from '@/hooks/use-toast';
 
-const courses = [
-  {
-    id: 1,
-    title: "Full Stack Web Development",
-    description: "Master modern web development with React, Node.js, and databases",
-    price: "$299",
-    originalPrice: "$599",
-    duration: "12 weeks",
-    students: "2,500+",
-    rating: 4.9,
-    image: "/thumbnails/a1.jpg",
-    level: "Beginner to Advanced"
-  },
-  {
-    id: 2,
-    title: "Data Science & AI",
-    description: "Learn Python, machine learning, and artificial intelligence",
-    price: "$399",
-    originalPrice: "$799",
-    duration: "16 weeks",
-    students: "1,800+",
-    rating: 4.8,
-    image: "/thumbnails/a2.jpg",
-    level: "Intermediate"
-  },
-  {
-    id: 3,
-    title: "Cloud Computing with AWS",
-    description: "Become an AWS certified cloud architect and engineer",
-    price: "$349",
-    originalPrice: "$699",
-    duration: "10 weeks",
-    students: "1,200+",
-    rating: 4.9,
-    image: "/thumbnails/a3.jpg",
-    level: "Intermediate"
-  },
-  {
-    id: 4,
-    title: "Mobile App Development",
-    description: "Build iOS and Android apps with React Native",
-    price: "$279",
-    originalPrice: "$559",
-    duration: "8 weeks",
-    students: "900+",
-    rating: 4.7,
-    image: "/thumbnails/a4.jpg",
-    level: "Beginner"
-  },
-  {
-    id: 5,
-    title: "Cybersecurity Specialist",
-    description: "Learn ethical hacking and cybersecurity fundamentals",
-    price: "$429",
-    originalPrice: "$859",
-    duration: "14 weeks",
-    students: "750+",
-    rating: 4.8,
-    image: "/thumbnails/a5.jpg",
-    level: "Advanced"
-  }
-];
+interface Course {
+  id: string;
+  name: string;
+  title?: string;
+  description?: string;
+  price: number;
+  is_free: boolean;
+  is_published: boolean;
+  thumbnail_url?: string;
+}
 
 export const CourseCarousel = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [courses, setCourses] = useState<Course[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [selectedCourse, setSelectedCourse] = useState<string | null>(null);
+  const { toast } = useToast();
   const coursesPerView = 3;
+
+  useEffect(() => {
+    fetchCourses();
+  }, []);
+
+  const fetchCourses = async () => {
+    try {
+      const { data, error } = await supabase
+        .from('courses')
+        .select('*')
+        .eq('is_published', true)
+        .order('created_at', { ascending: false });
+
+      if (error) throw error;
+      setCourses(data || []);
+    } catch (error) {
+      console.error('Error fetching courses:', error);
+      toast({
+        title: "Error",
+        description: "Failed to load courses. Please try again.",
+        variant: "destructive"
+      });
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const nextSlide = () => {
     setCurrentIndex((prev) => 
@@ -85,8 +65,42 @@ export const CourseCarousel = () => {
   };
 
   const visibleCourses = courses.slice(currentIndex, currentIndex + coursesPerView);
-  if (visibleCourses.length < coursesPerView) {
+  if (visibleCourses.length < coursesPerView && courses.length > coursesPerView) {
     visibleCourses.push(...courses.slice(0, coursesPerView - visibleCourses.length));
+  }
+
+  const handleEnrollClick = (courseId: string) => {
+    setSelectedCourse(courseId);
+  };
+
+  const handleClosePreview = () => {
+    setSelectedCourse(null);
+  };
+
+  if (loading) {
+    return (
+      <section className="py-20 bg-background">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center">
+            <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-primary mx-auto"></div>
+            <p className="mt-4 text-muted-foreground">Loading courses...</p>
+          </div>
+        </div>
+      </section>
+    );
+  }
+
+  if (courses.length === 0) {
+    return (
+      <section className="py-20 bg-background">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center">
+            <h2 className="text-4xl font-bold text-foreground mb-4">Available Courses</h2>
+            <p className="text-xl text-muted-foreground">No published courses available at the moment.</p>
+          </div>
+        </div>
+      </section>
+    );
   }
 
   return (
@@ -127,50 +141,51 @@ export const CourseCarousel = () => {
                 <CardHeader className="p-0">
                   <div className="relative overflow-hidden rounded-t-lg">
                     <img
-                      src={course.image}
-                      alt={course.title}
+                      src={course.thumbnail_url || "/thumbnails/a1.jpg"}
+                      alt={course.title || course.name}
                       className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300"
                     />
                     <Badge className="absolute top-4 left-4 bg-accent text-accent-foreground">
-                      {course.level}
+                      {course.is_free ? "Free" : "Premium"}
                     </Badge>
                   </div>
                 </CardHeader>
                 
                 <CardContent className="p-6">
                   <CardTitle className="text-xl font-bold text-card-foreground mb-3 line-clamp-2">
-                    {course.title}
+                    {course.title || course.name}
                   </CardTitle>
                   
-                  <p className="text-muted-foreground mb-4 line-clamp-2">
-                    {course.description}
+                  <p className="text-muted-foreground mb-4 line-clamp-3">
+                    {course.description || "Comprehensive course designed to help you master new skills"}
                   </p>
                   
                   <div className="flex items-center gap-4 text-sm text-muted-foreground mb-4">
                     <div className="flex items-center gap-1">
-                      <Clock className="h-4 w-4" />
-                      <span>{course.duration}</span>
+                      <Star className="h-4 w-4 fill-yellow-400 text-yellow-400" />
+                      <span>4.8</span>
                     </div>
                     <div className="flex items-center gap-1">
                       <Users className="h-4 w-4" />
-                      <span>{course.students}</span>
-                    </div>
-                    <div className="flex items-center gap-1">
-                      <Star className="h-4 w-4 fill-yellow-400 text-yellow-400" />
-                      <span>{course.rating}</span>
+                      <span>Students</span>
                     </div>
                   </div>
                   
                   <div className="flex items-center gap-2 mb-4">
-                    <span className="text-2xl font-bold text-primary">{course.price}</span>
-                    <span className="text-lg text-muted-foreground line-through">{course.originalPrice}</span>
-                    <Badge variant="destructive" className="text-xs">50% OFF</Badge>
+                    {course.is_free ? (
+                      <span className="text-2xl font-bold text-green-600">Free</span>
+                    ) : (
+                      <span className="text-2xl font-bold text-primary">${course.price}</span>
+                    )}
                   </div>
                 </CardContent>
                 
                 <CardFooter className="p-6 pt-0">
-                  <Button className="w-full bg-primary hover:bg-primary/90 text-primary-foreground">
-                    Enroll Now
+                  <Button 
+                    className="w-full bg-primary hover:bg-primary/90 text-primary-foreground"
+                    onClick={() => handleEnrollClick(course.id)}
+                  >
+                    Preview Course
                   </Button>
                 </CardFooter>
               </Card>
@@ -178,6 +193,13 @@ export const CourseCarousel = () => {
           </div>
         </div>
       </div>
+
+      {selectedCourse && (
+        <CoursePreview 
+          courseId={selectedCourse} 
+          onClose={handleClosePreview} 
+        />
+      )}
     </section>
   );
 };
