@@ -7,7 +7,7 @@ export type Json =
   | Json[]
 
 export type Database = {
-  // Allows to automatically instanciate createClient with right options
+  // Allows to automatically instantiate createClient with right options
   // instead of createClient<Database, { PostgrestVersion: 'XX' }>(URL, KEY)
   __InternalSupabase: {
     PostgrestVersion: "12.2.3 (519615d)"
@@ -734,7 +734,47 @@ export type Database = {
       }
     }
     Views: {
-      [_ in never]: never
+      quiz_questions_student: {
+        Row: {
+          correct_answer: string | null
+          id: string | null
+          options: Json | null
+          order_index: number | null
+          points: number | null
+          question_text: string | null
+          question_type: Database["public"]["Enums"]["question_type"] | null
+          quiz_id: string | null
+        }
+        Insert: {
+          correct_answer?: never
+          id?: string | null
+          options?: Json | null
+          order_index?: number | null
+          points?: number | null
+          question_text?: string | null
+          question_type?: Database["public"]["Enums"]["question_type"] | null
+          quiz_id?: string | null
+        }
+        Update: {
+          correct_answer?: never
+          id?: string | null
+          options?: Json | null
+          order_index?: number | null
+          points?: number | null
+          question_text?: string | null
+          question_type?: Database["public"]["Enums"]["question_type"] | null
+          quiz_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "quiz_questions_quiz_id_fkey"
+            columns: ["quiz_id"]
+            isOneToOne: false
+            referencedRelation: "quizzes"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
     }
     Functions: {
       create_admin_user: {
@@ -743,6 +783,10 @@ export type Database = {
       }
       is_admin: {
         Args: { user_id: string }
+        Returns: boolean
+      }
+      is_staff_or_admin: {
+        Args: Record<PropertyKey, never>
         Returns: boolean
       }
     }
