@@ -22,6 +22,7 @@ import { InquiryManagement } from './components/admin/InquiryManagement';
 import AdminPayments from './components/admin/AdminPayments';
 import { AdminCourseManagement } from './components/admin/AdminCourseManagement';
 import { UserProgress } from './components/student/UserProgress';
+import { ResetPassword } from './pages/ResetPassword';
 
 
 
@@ -36,7 +37,8 @@ function App() {
             <Routes>
               {/* Public Routes */}
               <Route path="/" element={<Home />} />
-              <Route path="/login" element={<LoginForm />} />            
+              <Route path="/login" element={<LoginForm />} />
+              <Route path="/reset-password" element={<ResetPassword />} />            
               <Route path="courses/:id" element={<CourseViewer />} />
 
 
