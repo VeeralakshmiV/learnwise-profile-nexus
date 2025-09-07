@@ -734,47 +734,7 @@ export type Database = {
       }
     }
     Views: {
-      quiz_questions_student: {
-        Row: {
-          correct_answer: string | null
-          id: string | null
-          options: Json | null
-          order_index: number | null
-          points: number | null
-          question_text: string | null
-          question_type: Database["public"]["Enums"]["question_type"] | null
-          quiz_id: string | null
-        }
-        Insert: {
-          correct_answer?: never
-          id?: string | null
-          options?: Json | null
-          order_index?: number | null
-          points?: number | null
-          question_text?: string | null
-          question_type?: Database["public"]["Enums"]["question_type"] | null
-          quiz_id?: string | null
-        }
-        Update: {
-          correct_answer?: never
-          id?: string | null
-          options?: Json | null
-          order_index?: number | null
-          points?: number | null
-          question_text?: string | null
-          question_type?: Database["public"]["Enums"]["question_type"] | null
-          quiz_id?: string | null
-        }
-        Relationships: [
-          {
-            foreignKeyName: "quiz_questions_quiz_id_fkey"
-            columns: ["quiz_id"]
-            isOneToOne: false
-            referencedRelation: "quizzes"
-            referencedColumns: ["id"]
-          },
-        ]
-      }
+      [_ in never]: never
     }
     Functions: {
       create_admin_user: {

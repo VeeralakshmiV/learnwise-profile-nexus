@@ -10,6 +10,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { useToast } from '@/hooks/use-toast';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import { RichTextEditor } from '@/components/editor/RichTextEditor';
+import DOMPurify from 'dompurify';
 import { 
   Plus, 
   Trash2, 
@@ -276,7 +277,7 @@ export const AssignmentManager: React.FC<AssignmentManagerProps> = ({ courseId: 
                     {assignment.description && (
                       <div 
                         className="text-gray-600 mt-2 prose prose-sm max-w-none"
-                        dangerouslySetInnerHTML={{ __html: assignment.description }}
+                        dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(assignment.description) }}
                       />
                     )}
                     <div className="flex items-center gap-4 mt-3">

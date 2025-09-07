@@ -7,6 +7,7 @@ import { Button } from '@/components/ui/button';
 import { Progress } from '@/components/ui/progress';
 import { Badge } from '@/components/ui/badge';
 import { useToast } from '@/hooks/use-toast';
+import DOMPurify from 'dompurify';
 import { 
   BookOpen, 
   Play, 
@@ -147,10 +148,11 @@ export const CourseViewer: React.FC = () => {
 
     switch (content.content_type) {
       case 'text':
+        const sanitizedHtml = DOMPurify.sanitize(contentData?.html || contentData?.text || '');
         return (
           <div 
             className="prose max-w-none"
-            dangerouslySetInnerHTML={{ __html: contentData?.html || contentData?.text || '' }}
+            dangerouslySetInnerHTML={{ __html: sanitizedHtml }}
           />
         );
       case 'video':

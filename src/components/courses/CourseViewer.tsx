@@ -7,6 +7,7 @@ import { useAuth } from '@/components/auth/AuthProvider';
 import { useToast } from '@/hooks/use-toast';
 import { Button } from '@/components/ui/button';
 import { CheckCircle } from 'lucide-react';
+import DOMPurify from 'dompurify';
 import '@/styles/course-viewer.css';
 
 // Types
@@ -155,8 +156,9 @@ export const CourseViewer: React.FC = () => {
           </div>
         );
       case 'text':
+        const sanitizedHtml = DOMPurify.sanitize(data.html || data.text || '');
         return (
-          <div className="prose max-w-none" dangerouslySetInnerHTML={{ __html: data.html || data.text }} />
+          <div className="prose max-w-none" dangerouslySetInnerHTML={{ __html: sanitizedHtml }} />
         );
       case 'image':
         return (
