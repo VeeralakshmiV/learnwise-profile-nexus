@@ -231,20 +231,45 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   };
 
   const signInWithGoogle = async () => {
-    const { error } = await supabase.auth.signInWithOAuth({
-      provider: 'google',
-      options: {
-        redirectTo: `${window.location.origin}/`
+    try {
+      const { data, error } = await supabase.auth.signInWithOAuth({
+        provider: 'google',
+        options: {
+          redirectTo: `${window.location.origin}/`
+        }
+      });
+      if (error) {
+        console.error('Google OAuth error:', error);
+        if (error.message.includes('provider is not enabled')) {
+          throw new Error('Google sign-in is not configured. Please use email/password login or contact support.');
+        }
+        throw error;
       }
-    });
-    if (error) throw error;
+    } catch (error: any) {
+      console.error('Google sign-in error:', error);
+      throw error;
+    }
   };
 
   const resetPassword = async (email: string) => {
-    const { error } = await supabase.auth.resetPasswordForEmail(email, {
-      redirectTo: `${window.location.origin}/reset-password`
-    });
-    if (error) throw error;
+    try {
+      const { data, error } = await supabase.auth.resetPasswordForEmail(email, {
+        redirectTo: `${window.location.origin}/reset-password`
+      });
+      if (error) {
+        console.error('Reset password error:', error);
+        if (error.message.includes('Unable to validate email address')) {
+          throw new Error('Please enter a valid email address.');
+        } else if (error.message.includes('Email rate limit exceeded')) {
+          throw new Error('Too many reset requests. Please wait a few minutes before trying again.');
+        }
+        throw error;
+      }
+      console.log('Reset password email sent successfully');
+    } catch (error: any) {
+      console.error('Password reset error:', error);
+      throw error;
+    }
   };
 
   const isAdmin = profile?.role === 'admin';
