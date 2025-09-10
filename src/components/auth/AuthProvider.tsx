@@ -172,21 +172,30 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
   const signIn = async (email: string, password: string) => {
     console.log('Attempting sign in for:', email);
-    const { error } = await supabase.auth.signInWithPassword({ 
+    const { data, error } = await supabase.auth.signInWithPassword({ 
       email, 
       password 
     });
     if (error) {
       console.error('Sign in error:', error);
+      // Provide user-friendly error messages
+      if (error.message.includes('Invalid login credentials')) {
+        throw new Error('Invalid email or password. Please check your credentials and try again.');
+      } else if (error.message.includes('Email not confirmed')) {
+        throw new Error('Please confirm your email address before signing in.');
+      } else if (error.message.includes('Too many requests')) {
+        throw new Error('Too many login attempts. Please wait a few minutes before trying again.');
+      }
       throw error;
     }
+    console.log('Sign in successful for:', email);
   };
 
   const signUp = async (email: string, password: string, fullName: string) => {
     console.log('Attempting sign up for:', email);
     const redirectUrl = `${window.location.origin}/`;
     
-    const { error } = await supabase.auth.signUp({
+    const { data, error } = await supabase.auth.signUp({
       email,
       password,
       options: {
@@ -200,8 +209,17 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     
     if (error) {
       console.error('Sign up error:', error);
+      // Provide user-friendly error messages
+      if (error.message.includes('User already registered')) {
+        throw new Error('This email is already registered. Please try signing in instead.');
+      } else if (error.message.includes('Password should be at least')) {
+        throw new Error('Password must be at least 6 characters long.');
+      } else if (error.message.includes('Unable to validate email address')) {
+        throw new Error('Please enter a valid email address.');
+      }
       throw error;
     }
+    console.log('Sign up successful for:', email);
   };
 
   const signOut = async () => {

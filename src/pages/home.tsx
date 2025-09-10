@@ -241,6 +241,9 @@ const Home = () => {
         <CourseCarousel />
       </div>
 
+      {/* Testimonials */}
+      <TestimonialsSection />
+
       {/* Contact Form */}
       <ContactForm />
 
