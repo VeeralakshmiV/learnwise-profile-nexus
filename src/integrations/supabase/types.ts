@@ -734,12 +734,61 @@ export type Database = {
       }
     }
     Views: {
-      [_ in never]: never
+      student_quiz_questions: {
+        Row: {
+          id: string | null
+          options: Json | null
+          order_index: number | null
+          points: number | null
+          question_text: string | null
+          question_type: Database["public"]["Enums"]["question_type"] | null
+          quiz_id: string | null
+        }
+        Insert: {
+          id?: string | null
+          options?: Json | null
+          order_index?: number | null
+          points?: number | null
+          question_text?: string | null
+          question_type?: Database["public"]["Enums"]["question_type"] | null
+          quiz_id?: string | null
+        }
+        Update: {
+          id?: string | null
+          options?: Json | null
+          order_index?: number | null
+          points?: number | null
+          question_text?: string | null
+          question_type?: Database["public"]["Enums"]["question_type"] | null
+          quiz_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "quiz_questions_quiz_id_fkey"
+            columns: ["quiz_id"]
+            isOneToOne: false
+            referencedRelation: "quizzes"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
     }
     Functions: {
       create_admin_user: {
         Args: Record<PropertyKey, never>
         Returns: undefined
+      }
+      get_quiz_questions_for_student: {
+        Args: { quiz_uuid: string }
+        Returns: {
+          id: string
+          options: Json
+          order_index: number
+          points: number
+          question_text: string
+          question_type: Database["public"]["Enums"]["question_type"]
+          quiz_id: string
+        }[]
       }
       is_admin: {
         Args: { user_id: string }
@@ -747,6 +796,10 @@ export type Database = {
       }
       is_staff_or_admin: {
         Args: Record<PropertyKey, never>
+        Returns: boolean
+      }
+      is_user_enrolled_in_course: {
+        Args: { course_uuid: string }
         Returns: boolean
       }
     }
