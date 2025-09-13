@@ -23,6 +23,7 @@ import AdminPayments from './components/admin/AdminPayments';
 import { AdminCourseManagement } from './components/admin/AdminCourseManagement';
 import { UserProgress } from './components/student/UserProgress';
 import { ResetPassword } from './pages/ResetPassword';
+import { AdminPasswordReset } from './components/auth/AdminPasswordReset';
 
 
 
@@ -39,6 +40,7 @@ function App() {
               <Route path="/" element={<Home />} />
               <Route path="/login" element={<ModernLoginForm />} />
               <Route path="/reset-password" element={<ResetPassword />} />            
+              <Route path="/admin-reset" element={<AdminPasswordReset />} />
               <Route path="courses/:id" element={<CourseViewer />} />
 
 

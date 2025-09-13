@@ -114,6 +114,7 @@ const Home = () => {
               <a href="#courses" className="text-muted-foreground hover:text-foreground transition-colors">Courses</a>
               <a href="#why-choose" className="text-muted-foreground hover:text-foreground transition-colors">Why Choose Us</a>
               <a href="#contact" className="text-muted-foreground hover:text-foreground transition-colors">Contact</a>
+              <a href="/admin-reset" className="text-red-600 hover:text-red-700 transition-colors text-sm">Admin Reset</a>
               <Button 
                 variant="ghost" 
                 className="text-primary font-semibold"

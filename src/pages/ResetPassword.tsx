@@ -21,14 +21,26 @@ export const ResetPassword: React.FC = () => {
     // Check if we have the necessary tokens in the URL
     const accessToken = searchParams.get('access_token');
     const refreshToken = searchParams.get('refresh_token');
+    const type = searchParams.get('type');
     
-    if (!accessToken || !refreshToken) {
+    console.log('Reset password page loaded with params:', { accessToken: !!accessToken, refreshToken: !!refreshToken, type });
+    
+    if (type !== 'recovery' || !accessToken) {
       toast({
         title: "Invalid Reset Link",
         description: "This password reset link is invalid or has expired.",
         variant: "destructive",
       });
-      navigate('/login');
+      setTimeout(() => navigate('/login'), 3000);
+      return;
+    }
+    
+    // Set the session with the tokens from URL
+    if (accessToken && refreshToken) {
+      supabase.auth.setSession({
+        access_token: accessToken,
+        refresh_token: refreshToken
+      });
     }
   }, [searchParams, navigate, toast]);
 

@@ -35,6 +35,7 @@ export const ModernLoginForm: React.FC = () => {
 
     setLoading(true);
     try {
+      console.log('Attempting login for:', email);
       await signIn(email, password);
       toast({
         title: "Welcome back!",
@@ -42,9 +43,20 @@ export const ModernLoginForm: React.FC = () => {
       });
     } catch (error: any) {
       console.error('Login error:', error);
+      
+      // Provide more specific error messages
+      let errorMessage = "Invalid credentials. Please try again.";
+      if (error.message.includes('Invalid login credentials')) {
+        errorMessage = "Invalid email or password. Please check your credentials.";
+      } else if (error.message.includes('Email not confirmed')) {
+        errorMessage = "Please verify your email address before signing in.";
+      } else if (error.message.includes('Too many requests')) {
+        errorMessage = "Too many login attempts. Please wait before trying again.";
+      }
+      
       toast({
         title: "Login Failed",
-        description: error.message || "Invalid credentials. Please try again.",
+        description: errorMessage,
         variant: "destructive",
       });
     } finally {

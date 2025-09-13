@@ -253,6 +253,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
   const resetPassword = async (email: string) => {
     try {
+      console.log('Attempting password reset for:', email);
       const { data, error } = await supabase.auth.resetPasswordForEmail(email, {
         redirectTo: `${window.location.origin}/reset-password`
       });
@@ -264,10 +265,13 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
           throw new Error('Too many reset requests. Please wait a few minutes before trying again.');
         } else if (error.message.includes('For security purposes, you can only request this after')) {
           throw new Error('Please wait a few seconds before requesting another password reset.');
+        } else if (error.message.includes('User not found')) {
+          throw new Error('No account found with this email address.');
         }
         throw error;
       }
       console.log('Reset password email sent successfully');
+      return { success: true, message: 'Password reset email sent successfully' };
     } catch (error: any) {
       console.error('Password reset error:', error);
       throw error;
