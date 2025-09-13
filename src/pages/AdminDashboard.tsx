@@ -46,6 +46,7 @@ import {
   MessageCircle,
   Award
 } from 'lucide-react';
+import { AdminPasswordChange } from '@/components/admin/AdminPasswordChange';
 import { Badge } from '@/components/ui/badge';
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import {
@@ -413,6 +414,19 @@ const AdminSettings: React.FC = () => {
                 rows={3}
               />
             </div>
+          </CardContent>
+        </Card>
+
+        {/* Admin Security Settings */}
+        <Card className="bg-white/90 backdrop-blur-sm border-0 shadow-xl">
+          <CardHeader className="bg-gradient-to-r from-red-50 to-orange-50 border-b">
+            <CardTitle className="flex items-center gap-2 text-gray-900">
+              <Shield className="h-5 w-5 text-red-600" />
+              Admin Security
+            </CardTitle>
+          </CardHeader>
+          <CardContent className="p-6 space-y-6">
+            <AdminPasswordChange />
           </CardContent>
         </Card>
 

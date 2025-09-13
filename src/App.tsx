@@ -17,7 +17,7 @@ import { AssignmentManager } from './components/staff/AssignmentManager';
 import { CourseViewer } from './components/courses/CourseViewer';
 import NotFound from './pages/NotFound';
 import Home from '@/pages/home';
-import { LoginForm } from './components/auth/LoginForm';
+import { ModernLoginForm } from './components/auth/ModernLoginForm';
 import { InquiryManagement } from './components/admin/InquiryManagement';
 import AdminPayments from './components/admin/AdminPayments';
 import { AdminCourseManagement } from './components/admin/AdminCourseManagement';
@@ -37,7 +37,7 @@ function App() {
             <Routes>
               {/* Public Routes */}
               <Route path="/" element={<Home />} />
-              <Route path="/login" element={<LoginForm />} />
+              <Route path="/login" element={<ModernLoginForm />} />
               <Route path="/reset-password" element={<ResetPassword />} />            
               <Route path="courses/:id" element={<CourseViewer />} />
 

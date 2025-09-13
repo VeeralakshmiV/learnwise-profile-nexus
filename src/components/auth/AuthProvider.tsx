@@ -260,8 +260,10 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         console.error('Reset password error:', error);
         if (error.message.includes('Unable to validate email address')) {
           throw new Error('Please enter a valid email address.');
-        } else if (error.message.includes('Email rate limit exceeded')) {
+        } else if (error.message.includes('Email rate limit exceeded') || error.code === 'over_email_send_rate_limit') {
           throw new Error('Too many reset requests. Please wait a few minutes before trying again.');
+        } else if (error.message.includes('For security purposes, you can only request this after')) {
+          throw new Error('Please wait a few seconds before requesting another password reset.');
         }
         throw error;
       }
