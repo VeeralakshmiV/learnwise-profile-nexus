@@ -40,7 +40,7 @@ export const StudentDashboard: React.FC = () => {
     currentStreak: 0
   });
   const [loading, setLoading] = useState(true);
-  const { profile } = useAuth();
+  const { profile, signOut } = useAuth();
   const { toast } = useToast();
   const navigate = useNavigate();
 
@@ -164,11 +164,20 @@ export const StudentDashboard: React.FC = () => {
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-purple-50 to-indigo-100">
       <div className="container mx-auto py-8 max-w-7xl space-y-8">
         {/* Header */}
-        <div className="text-center space-y-4">
-          <h1 className="text-4xl font-bold bg-gradient-to-r from-blue-600 via-purple-600 to-indigo-600 bg-clip-text text-transparent">
-            Welcome back, {profile?.full_name}!
-          </h1>
-          <p className="text-gray-600 text-lg">Continue your learning journey and achieve your goals</p>
+        <div className="flex justify-between items-start">
+          <div className="text-center flex-1 space-y-4">
+            <h1 className="text-4xl font-bold bg-gradient-to-r from-blue-600 via-purple-600 to-indigo-600 bg-clip-text text-transparent">
+              Welcome back, {profile?.full_name}!
+            </h1>
+            <p className="text-gray-600 text-lg">Continue your learning journey and achieve your goals</p>
+          </div>
+          <Button
+            onClick={signOut}
+            variant="outline"
+            className="border-red-200 text-red-600 hover:bg-red-50 hover:border-red-300"
+          >
+            Logout
+          </Button>
         </div>
 
         {/* Stats Cards */}
