@@ -6,13 +6,15 @@ import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { useToast } from '@/hooks/use-toast';
-import { Eye, EyeOff, Mail, Lock, User, ArrowRight, Sparkles, Shield } from 'lucide-react';
+import { Eye, EyeOff, Mail, Lock, User, ArrowRight, Sparkles, Shield, Users } from 'lucide-react';
 
 export const ModernLoginForm: React.FC = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [fullName, setFullName] = useState('');
+  const [role, setRole] = useState('student');
   const [resetEmail, setResetEmail] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -66,7 +68,7 @@ export const ModernLoginForm: React.FC = () => {
 
   const handleSignUp = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!email || !password || !fullName) {
+    if (!email || !password || !fullName || !role) {
       toast({
         title: "Missing Information", 
         description: "Please fill in all required fields.",
@@ -86,11 +88,16 @@ export const ModernLoginForm: React.FC = () => {
 
     setLoading(true);
     try {
-      await signUp(email, password, fullName);
+      await signUp(email, password, fullName, role);
       toast({
         title: "Account Created!",
-        description: "Welcome to AlphaFly! Please check your email to verify your account.",
+        description: "Welcome to AlphaFly! You can now sign in with your credentials.",
       });
+      // Clear form
+      setEmail('');
+      setPassword('');
+      setFullName('');
+      setRole('student');
     } catch (error: any) {
       console.error('Signup error:', error);
       toast({
@@ -389,6 +396,23 @@ export const ModernLoginForm: React.FC = () => {
                       </button>
                     </div>
                     <p className="text-xs text-gray-500">Minimum 6 characters required</p>
+                  </div>
+
+                  <div className="space-y-2">
+                    <Label htmlFor="signup-role" className="text-gray-700 font-medium">Role</Label>
+                    <div className="relative">
+                      <Users className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4 z-10" />
+                      <Select value={role} onValueChange={setRole}>
+                        <SelectTrigger className="pl-10 bg-white border-gray-300 focus:border-blue-500 focus:ring-blue-500">
+                          <SelectValue placeholder="Select your role" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectItem value="student">Student</SelectItem>
+                          <SelectItem value="staff">Staff</SelectItem>
+                          <SelectItem value="admin">Admin</SelectItem>
+                        </SelectContent>
+                      </Select>
+                    </div>
                   </div>
 
                   <Button 

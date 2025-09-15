@@ -12,7 +12,7 @@ interface AuthContextType {
   profile: Profile | null;
   loading: boolean;
   signIn: (email: string, password: string) => Promise<void>;
-  signUp: (email: string, password: string, fullName: string) => Promise<void>;
+  signUp: (email: string, password: string, fullName: string, role?: string) => Promise<void>;
   signInWithGoogle: () => Promise<void>;
   resetPassword: (email: string) => Promise<{ success: boolean; message: string; }>;
   signOut: () => Promise<void>;
@@ -191,18 +191,16 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     console.log('Sign in successful for:', email);
   };
 
-  const signUp = async (email: string, password: string, fullName: string) => {
-    console.log('Attempting sign up for:', email);
-    const redirectUrl = `${window.location.origin}/`;
+  const signUp = async (email: string, password: string, fullName: string, userRole: string = 'student') => {
+    console.log('Attempting sign up for:', email, 'with role:', userRole);
     
     const { data, error } = await supabase.auth.signUp({
       email,
       password,
       options: {
-        emailRedirectTo: redirectUrl,
         data: {
           full_name: fullName,
-          role: 'student' // Default role for public signup
+          role: userRole
         }
       }
     });
