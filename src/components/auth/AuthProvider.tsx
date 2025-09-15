@@ -172,15 +172,29 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
   const signIn = async (email: string, password: string) => {
     console.log('Attempting sign in for:', email);
+    
+    // Special handling for admin user to provide better error messages
+    if (email === 'veeralakshmi.alphafly@gmail.com') {
+      console.log('Admin login attempt detected');
+    }
+    
     const { data, error } = await supabase.auth.signInWithPassword({ 
       email, 
       password 
     });
+    
     if (error) {
       console.error('Sign in error:', error);
+      
+      // Special handling for admin user
+      if (email === 'veeralakshmi.alphafly@gmail.com' && error.message.includes('Invalid login credentials')) {
+        console.error('Admin user login failed - check if admin user exists in database');
+        throw new Error('Admin user not found. Please ensure the admin user has been created in the database. Contact system administrator.');
+      }
+      
       // Provide user-friendly error messages
       if (error.message.includes('Invalid login credentials')) {
-        throw new Error('Invalid email or password. Please check your credentials and try again.');
+        throw new Error('Invalid email or password. Please check your credentials and try again. If you are an admin user, ensure your account has been properly set up.');
       } else if (error.message.includes('Email not confirmed')) {
         throw new Error('Please confirm your email address before signing in.');
       } else if (error.message.includes('Too many requests')) {

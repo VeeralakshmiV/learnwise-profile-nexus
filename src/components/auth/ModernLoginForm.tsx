@@ -48,12 +48,16 @@ export const ModernLoginForm: React.FC = () => {
       
       // Provide more specific error messages
       let errorMessage = "Invalid credentials. Please try again.";
-      if (error.message.includes('Invalid login credentials')) {
+      if (error.message.includes('Admin user not found')) {
+        errorMessage = error.message;
+      } else if (error.message.includes('Invalid login credentials') || error.message.includes('Invalid email or password')) {
         errorMessage = "Invalid email or password. Please check your credentials.";
       } else if (error.message.includes('Email not confirmed')) {
         errorMessage = "Please verify your email address before signing in.";
       } else if (error.message.includes('Too many requests')) {
         errorMessage = "Too many login attempts. Please wait before trying again.";
+      } else if (error.message) {
+        errorMessage = error.message;
       }
       
       toast({
