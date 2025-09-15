@@ -356,15 +356,7 @@ export type Database = {
           title?: string | null
           updated_at?: string | null
         }
-        Relationships: [
-          {
-            foreignKeyName: "courses_instructor_id_fkey"
-            columns: ["instructor_id"]
-            isOneToOne: false
-            referencedRelation: "profiles"
-            referencedColumns: ["id"]
-          },
-        ]
+        Relationships: []
       }
       enrollments: {
         Row: {
@@ -518,6 +510,51 @@ export type Database = {
             referencedColumns: ["id"]
           },
         ]
+      }
+      profiles_backup: {
+        Row: {
+          address: string | null
+          course_id: string | null
+          created_at: string | null
+          email: string | null
+          fees: number | null
+          full_name: string | null
+          id: string | null
+          name: string | null
+          phone: string | null
+          profession: string | null
+          role: string | null
+          updated_at: string | null
+        }
+        Insert: {
+          address?: string | null
+          course_id?: string | null
+          created_at?: string | null
+          email?: string | null
+          fees?: number | null
+          full_name?: string | null
+          id?: string | null
+          name?: string | null
+          phone?: string | null
+          profession?: string | null
+          role?: string | null
+          updated_at?: string | null
+        }
+        Update: {
+          address?: string | null
+          course_id?: string | null
+          created_at?: string | null
+          email?: string | null
+          fees?: number | null
+          full_name?: string | null
+          id?: string | null
+          name?: string | null
+          phone?: string | null
+          profession?: string | null
+          role?: string | null
+          updated_at?: string | null
+        }
+        Relationships: []
       }
       quiz_attempts: {
         Row: {
