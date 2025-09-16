@@ -21,7 +21,8 @@ export const CourseEditor: React.FC = () => {
     description: '',
     price: 0,
     is_free: false,
-    is_published: false
+    is_published: false,
+    thumbnail_url: ''
   });
 
   useEffect(() => {
@@ -58,12 +59,61 @@ export const CourseEditor: React.FC = () => {
     });
   };
 
+  const handleThumbnailUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (!file) return;
+
+    // Validate file size (max 5MB)
+    if (file.size > 5 * 1024 * 1024) {
+      toast({
+        title: "Error",
+        description: "File size must be less than 5MB",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    try {
+      const fileName = `course-thumbnail-${Date.now()}-${file.name}`;
+      
+      // Upload to Supabase storage
+      const { data, error } = await supabase.storage
+        .from('course-files')
+        .upload(fileName, file, {
+          cacheControl: '3600',
+          upsert: false
+        });
+
+      if (error) throw error;
+
+      // Get public URL
+      const { data: { publicUrl } } = supabase.storage
+        .from('course-files')
+        .getPublicUrl(fileName);
+
+      setCourse({ ...course, thumbnail_url: publicUrl });
+      
+      toast({
+        title: "Success",
+        description: "Thumbnail uploaded successfully!",
+      });
+    } catch (error: any) {
+      console.error('Upload error:', error);
+      toast({
+        title: "Error",
+        description: error.message || "Failed to upload thumbnail",
+        variant: "destructive",
+      });
+    }
+  };
+
   const handleSave = async () => {
     setLoading(true);
     try {
       const courseData = {
         ...course,
-        price: course.is_free ? 0 : course.price
+        price: course.is_free ? 0 : course.price,
+        thumbnail_url: course.thumbnail_url
       };
 
       if (id) {
@@ -152,6 +202,26 @@ export const CourseEditor: React.FC = () => {
               />
             </div>
           )}
+
+          <div>
+            <Label htmlFor="thumbnail">Course Thumbnail</Label>
+            <Input
+              id="thumbnail"
+              type="file"
+              accept="image/*"
+              onChange={handleThumbnailUpload}
+              className="file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100"
+            />
+            {course.thumbnail_url && (
+              <div className="mt-2">
+                <img 
+                  src={course.thumbnail_url} 
+                  alt="Course thumbnail" 
+                  className="w-32 h-20 object-cover rounded-lg border"
+                />
+              </div>
+            )}
+          </div>
           
           <Button onClick={handleSave} disabled={loading}>
             {loading ? 'Saving...' : 'Save Course'}
