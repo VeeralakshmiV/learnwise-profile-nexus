@@ -759,10 +759,7 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
-      create_admin_user: {
-        Args: Record<PropertyKey, never>
-        Returns: undefined
-      }
+      create_admin_user: { Args: never; Returns: undefined }
       get_quiz_questions_for_student: {
         Args: { quiz_uuid: string }
         Returns: {
@@ -775,14 +772,8 @@ export type Database = {
           quiz_id: string
         }[]
       }
-      is_admin: {
-        Args: { user_id: string }
-        Returns: boolean
-      }
-      is_staff_or_admin: {
-        Args: Record<PropertyKey, never>
-        Returns: boolean
-      }
+      is_admin: { Args: { user_id: string }; Returns: boolean }
+      is_staff_or_admin: { Args: never; Returns: boolean }
       is_user_enrolled_in_course: {
         Args: { course_uuid: string }
         Returns: boolean
