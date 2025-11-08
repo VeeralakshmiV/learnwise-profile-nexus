@@ -7,9 +7,10 @@ import { Badge } from '@/components/ui/badge';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { useToast } from '@/hooks/use-toast';
 import { CourseEditor } from '@/components/courses/CourseEditor';
+import { CoursePreview } from '@/components/courses/CoursePreview';
 import { QuizManager } from '@/components/staff/QuizManager';
 import { AssignmentManager } from '@/components/staff/AssignmentManager';
-import { 
+import {
   Plus, 
   Edit, 
   Eye, 
@@ -41,6 +42,7 @@ export const AdminCourseManagement: React.FC = () => {
   const [activeTab, setActiveTab] = useState('courses');
   const [selectedCourse, setSelectedCourse] = useState<Course | null>(null);
   const [showCreateCourse, setShowCreateCourse] = useState(false);
+  const [previewCourseId, setPreviewCourseId] = useState<string | null>(null);
 
   useEffect(() => {
     fetchCourses();
@@ -89,8 +91,7 @@ export const AdminCourseManagement: React.FC = () => {
   };
 
   const handlePreviewCourse = (courseId: string) => {
-    // Open course preview in a new tab
-    window.open(`/courses/${courseId}`, '_blank');
+    setPreviewCourseId(courseId);
   };
 
   const handleManageQuizzes = (courseId: string) => {
@@ -304,6 +305,13 @@ export const AdminCourseManagement: React.FC = () => {
           </TabsContent>
         </Tabs>
       </div>
+      
+      {previewCourseId && (
+        <CoursePreview 
+          courseId={previewCourseId} 
+          onClose={() => setPreviewCourseId(null)} 
+        />
+      )}
     </div>
   );
 };
